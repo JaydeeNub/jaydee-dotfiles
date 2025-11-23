@@ -175,6 +175,10 @@ bindcode $mod+Shift+90   move container to workspace  $ws10
 # start a terminal
 bindsym $mod+Return exec --no-startup-id /usr/bin/kitty
 
+# start a browser
+bindsym $mod+b exec --no-startup-id brave
+
+
 # kill focused window
 bindsym $mod+q kill
 
@@ -305,10 +309,6 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # toggle between audio devices for output
 bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/audio-device-switch
 
-## App shortcuts
-bindsym $mod+w exec --no-startup-id /usr/bin/firefox
-bindsym $mod+n exec --no-startup-id /usr/bin/thunar
-bindsym Print exec --no-startup-id scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
 
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
@@ -333,18 +333,22 @@ set $ws10 "10"
 # use workspaces on different displays:
 # where you have to replace VGA-0/HDMI-0 with the names for your displays
 # you can get from xrandr command
-#workspace $ws1 output VGA-0
-#workspace $ws2 output VGA-0
-#workspace $ws3 output HDMI-0
-#workspace $ws4 output HDMI-0
-#workspace $ws5 output HDMI-0
+workspace $ws1 output DP-2
+workspace $ws2 output DP-5
+workspace $ws3 output HDMI-0
+workspace $ws4 output DP-2
+workspace $ws5 output DP-5
+workspace $ws6 output HDMI-0
+workspace $ws7 output DP-2
+workspace $ws8 output DP-5
+workspace $ws9 output HDMI-0
 
 # bind program to workspace and focus to them on startup:
-# assign [class="Xfce4-terminal"] $ws1
-# assign [class="(?i)firefox"] $ws2
-# assign [class="Thunar"] $ws3
-# assign [class="thunderbird"] $ws4
-# assign [class="TelegramDesktop"] $ws5
+assign [class="kitty"] $ws3
+assign [class="brave-browser"] $ws2
+assign [class="Thunar"] $ws3
+assign [class="code"] $ws1
+
 
 # automatic set focus new window if it opens on another workspace than the current:
 # for_window [class=Xfce4-terminal] focus

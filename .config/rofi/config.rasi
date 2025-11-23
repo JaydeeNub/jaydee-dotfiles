@@ -5,6 +5,7 @@
  * 
  * Configuration For Rofi Version: 1.7.3
  **/
+ @theme "~/.local/share/rofi/themes/arc_dark_transparent_colors.rasi"
 
 configuration {
 	/*---------- General setting ----------*/
