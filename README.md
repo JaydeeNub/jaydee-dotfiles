@@ -1,450 +1,308 @@
-# Complete Linux Dotfiles Setup Guide
+# Linux Dotfiles
 
-A comprehensive guide for setting up a customized Linux desktop environment from scratch using i3wm, Kitty terminal, Zsh with Powerlevel10k, Rofi launcher, and more.
+A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with Powerlevel10k, and Rofi.
 
-## Overview
+## What's Included
 
-This dotfiles repository provides a complete desktop configuration featuring a minimal, keyboard-driven Linux environment. The setup includes a tiling window manager, GPU-accelerated terminal, modern shell with beautiful prompt, application launcher, system monitor, and compositor for visual effects.
-
-**What's included:**
-- **i3wm** - Tiling window manager for efficient workspace management
-- **Kitty** - GPU-accelerated terminal emulator with modern features
-- **Zsh + Oh My Zsh** - Advanced shell with extensive plugin ecosystem
-- **Powerlevel10k** - Fast, beautiful, and highly customizable prompt theme
-- **Rofi** - Application launcher and dmenu replacement with custom themes
-- **Conky** - Lightweight system monitor displaying system information
-- **Picom** - Compositor providing transparency, shadows, and smooth visuals
-- **Additional utilities** - Various scripts and configurations for a complete setup
-
-## Final Setup Appearance
-
-This configuration creates a beautiful, functional desktop environment with:
-- Clean tiling window layout with customizable gaps between windows
-- Transparent terminal windows with blur effects
-- Beautiful, informative shell prompt showing Git status, directory, and system info
-- Elegant application launcher with custom themes
-- Real-time system monitoring overlay
-- Smooth window animations and visual effects
-- Fully keyboard-driven workflow for maximum productivity
+- **i3wm** - Tiling window manager
+- **Kitty** - GPU-accelerated terminal emulator
+- **Zsh + Oh My Zsh** - Modern shell with plugins
+- **Powerlevel10k** - Beautiful, fast shell prompt
+- **Rofi** - Application launcher with custom themes
+- **Conky** - System monitor displaying real-time information
+- **Picom** - Compositor for transparency and visual effects
 
 ## Prerequisites
 
-Before starting, ensure you have a fresh Linux installation with:
-- **Operating System**: Ubuntu 20.04+, Debian 11+, Arch Linux, Fedora 35+, or similar
-- **Display Server**: X11 (Xorg) - required for i3wm
-- **Internet Connection**: For downloading packages and fonts
-- **Basic Tools**: `curl`, `wget`, `git` installed
-- **User Privileges**: Sudo access for installing packages
-- **Backup**: Create backups of any existing configuration files
+- Fresh Linux installation (Ubuntu 20.04+, Debian 11+, Arch, Fedora 35+)
+- X11 (Xorg) display server
+- Internet connection
+- Sudo privileges
 
+## Quick Start Installation
 
+### 1. Install Base Packages
 
-**Install Zsh**
-
+**Ubuntu/Debian:**
 ```bash
-# Verify Zsh installation
-zsh --version
-
-# If not installed, install it (should already be installed from Phase 1)
-# Ubuntu/Debian: sudo apt install zsh
-# Arch: sudo pacman -S zsh
-# Fedora: sudo dnf install zsh
+sudo apt update && sudo apt install -y \
+    i3 i3status rofi conky picom kitty zsh \
+    git curl wget feh nitrogen dunst \
+    brightnessctl pavucontrol network-manager-applet \
+    maim xclip fonts-font-awesome
 ```
 
-**Set Zsh as Default Shell**
-
+**Arch Linux:**
 ```bash
-# Set Zsh as default shell
-chsh -s $(which zsh)
-
-# On Fedora, use:
-# sudo chsh $USER -s $(which zsh)
-
-# Verify the change
-echo $SHELL
+sudo pacman -S i3-wm i3status rofi conky picom kitty zsh \
+    git curl wget feh nitrogen dunst \
+    brightnessctl pavucontrol network-manager-applet \
+    maim xclip ttf-font-awesome
 ```
 
-**Important:** Log out and log back in for the shell change to take effect.
+**Fedora:**
+```bash
+sudo dnf install -y i3 i3status rofi conky picom kitty zsh \
+    git curl wget feh nitrogen dunst \
+    brightnessctl pavucontrol network-manager-applet \
+    maim xclip fontawesome-fonts
+```
 
-**Install Oh My Zsh**
+### 2. Install Required Fonts
 
 ```bash
-# Install Oh My Zsh via curl
+# Create fonts directory
+mkdir -p ~/.local/share/fonts
+
+# Download MesloLGS NF (required for Powerlevel10k icons)
+cd ~/.local/share/fonts
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+
+# Update font cache
+fc-cache -fv
+```
+
+### 3. Set Up Zsh with Oh My Zsh
+
+```bash
+# Install Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Or via wget if curl is unavailable
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-**Install Powerlevel10k Theme**
-
-```bash
-# Clone Powerlevel10k into Oh My Zsh custom themes directory
+# Install Powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
 
-**Install Essential Zsh Plugins**
-
-```bash
-# Install zsh-autosuggestions
+# Install plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# Install zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# Set Zsh as default shell
+chsh -s $(which zsh)
 ```
 
-### Install Rofi Themes Collection
+**Note:** Log out and log back in for shell change to take effect.
 
-The adi1090x Rofi collection provides beautiful pre-made launchers and applets.
+### 4. Install Rofi Themes
 
 ```bash
-# Clone the adi1090x/rofi repository
+# Install adi1090x's Rofi collection
 git clone --depth=1 https://github.com/adi1090x/rofi.git ~/rofi-themes
-
-# Navigate to directory
 cd ~/rofi-themes
-
-# Make setup script executable
 chmod +x setup.sh
-
-# Run installation
 ./setup.sh
-
-# Clean up
-cd ~
-rm -rf ~/rofi-themes
+cd ~ && rm -rf ~/rofi-themes
 ```
 
-This installs:
-- 7 launcher types with 15+ styles each
-- 6 powermenu types
-- Multiple applets (battery, brightness, network, volume, etc.)
-- 15+ color schemes (Dracula, Nord, Gruvbox, Catppuccin, etc.)
-
-### Phase 5: Clone and Set Up Dotfiles Repository
-
-**Using the Bare Repository Method**
-
-This elegant approach uses Git to manage dotfiles without symlinks.
-
-**Step 1: Create Backup of Existing Configs**
+### 5. Clone Dotfiles Repository
 
 ```bash
-# Create backup directory with timestamp
+# Backup existing configs
 mkdir -p ~/.config-backup-$(date +%Y%m%d)
-
-# Backup common config files if they exist
 for file in .bashrc .zshrc .vimrc .gitconfig; do
     [ -f ~/$file ] && cp ~/$file ~/.config-backup-$(date +%Y%m%d)/
 done
 
-# Backup config directories
-[ -d ~/.config/i3 ] && cp -r ~/.config/i3 ~/.config-backup-$(date +%Y%m%d)/
-[ -d ~/.config/kitty ] && cp -r ~/.config/kitty ~/.config-backup-$(date +%Y%m%d)/
-```
-
-**Step 2: Clone the Dotfiles Repository**
-
-```bash
-# Add .cfg to gitignore (prevents recursive tracking issues)
+# Clone dotfiles as bare repository
 echo ".cfg" >> ~/.gitignore
-
-# Clone your dotfiles repository as a bare repo
-# Replace with your actual repository URL
 git clone --bare https://github.com/JaydeeNub/jaydee-dotfiles.git $HOME/.cfg
-```
 
-**Step 3: Define the Config Alias**
-
-```bash
-# Create temporary alias for current session
+# Set up config alias
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-
-# Configure to hide untracked files
 config config --local status.showUntrackedFiles no
-```
 
-**Step 4: Checkout Your Dotfiles**
-
-```bash
-# Attempt to checkout
+# Checkout dotfiles
 config checkout
 
-# If you get errors about existing files, back them up automatically:
-mkdir -p .config-backup && \
-config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | \
-xargs -I{} mv {} .config-backup/{}
+# If checkout fails due to existing files, back them up:
+# mkdir -p .config-backup && \
+# config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
+# config checkout
 
-# Retry checkout
-config checkout
-```
-
-**Step 5: Make the Alias Permanent**
-
-The checkout should have included `.bashrc` or `.zshrc` with the alias, but verify:
-
-```bash
-# Check if alias exists in .zshrc
-grep "alias config=" ~/.zshrc
-
-# If not present, add it manually
-echo "alias config='/usr/bin/git --git-dir=\$HOME/.cfg/ --work-tree=\$HOME'" >> ~/.zshrc
-
-# Reload shell configuration
+# Reload shell
 source ~/.zshrc
 ```
 
-### Phase 6: Configure Individual Components
-
-#### Configure i3wm
-
-The dotfiles should include a complete i3 config, but here's the typical structure:
-
-**Location:** `~/.config/i3/config`
-
-**Key modifications to verify:**
-
-1. **Set modifier key** (usually Windows key)
-2. **Configure autostart applications**
-3. **Set up keybindings** for launchers and common apps
-4. **Configure workspaces** and window rules
-5. **Set up status bar** (i3bar or i3blocks)
-
-**Verify your config:**
+### 6. Initial Configuration
 
 ```bash
-# Check for syntax errors
+# Verify i3 config syntax
 i3 -C -c ~/.config/i3/config
 
-# If no errors, reload i3
-i3-msg reload
-```
-
-**First login to i3:**
-
-```bash
-# Log out of current session
-# Select i3 from your display manager login screen
-# On first launch, accept the config generation prompt
-```
-
-#### Configure Kitty Terminal
-
-**Location:** `~/.config/kitty/kitty.conf`
-
-**Essential settings to verify:**
-
-```conf
-# Font configuration
-font_family      MesloLGS NF
-font_size        12.0
-
-# Terminal aesthetics
-background_opacity 0.85
-window_padding_width 4
-
-# Tab bar
-tab_bar_edge top
-tab_bar_style powerline
-
-# Reload config shortcut
-map ctrl+shift+f5 load_config_file
-```
-
-**Test Kitty:**
-
-```bash
-# Launch Kitty (use from terminal or rofi)
-kitty
-
-# Inside Kitty, test font rendering with icons
-echo ""  # Should show a git branch icon
-```
-
-#### Configure Zsh and Powerlevel10k
-
-**Edit `~/.zshrc`:**
-
-1. **Set theme:**
-```bash
-ZSH_THEME="powerlevel10k/powerlevel10k"
-```
-
-2. **Enable plugins:**
-```bash
-plugins=(
-    git
-    ...
-)
-```
-
-3. **Run Powerlevel10k configuration wizard:**
-```bash
-# Restart terminal, then run:
+# Configure Powerlevel10k (interactive wizard)
 p10k configure
 
-# This will guide you through customization options:
-# - Prompt style (Rainbow, Lean, Classic, Pure)
-# - Character set (Unicode recommended)
-# - Time display
-# - Separators and prompt appearance
-# - Transient prompt (recommended: yes)
-# - Instant prompt mode (recommended: verbose)
+# Restart i3 to apply changes
+i3-msg restart
 ```
 
-#### Configure Rofi
+## Post-Installation
 
-**Location:** `~/.config/rofi/config.rasi`
+### Configure Kitty Font
 
-The adi1090x installation provides multiple launcher styles. Customize by editing:
-
-```bash
-# Edit launcher script to change style
-nano ~/.config/rofi/launchers/type-1/launcher.sh
-
-# Change the theme variable:
-theme='style-1'  # Try style-1 through style-15
-
-# Change color scheme by editing:
-nano ~/.config/rofi/launchers/type-1/shared/colors.rasi
-
-# Import different color:
-@import "~/.config/rofi/colors/nord.rasi"
-# Available: adapta, arc, catppuccin, dracula, everforest, gruvbox, nord, onedark, solarized, etc.
+Edit `~/.config/kitty/kitty.conf`:
+```conf
+font_family      MesloLGS NF
+font_size        12.0
+background_opacity 0.85
 ```
 
+### Configure Rofi Theme
 
-## Managing Your Dotfiles
+Edit launcher style in `~/.config/rofi/launchers/type-1/launcher.sh`:
+```bash
+theme='style-5'  # Change to style-1 through style-15
+```
 
-### Repo Usage Commands
+Change colors in `~/.config/rofi/launchers/type-1/shared/colors.rasi`:
+```css
+@import "~/.config/rofi/colors/dracula.rasi"  # or nord, gruvbox, catppuccin, etc.
+```
+
+### Update Network Interface in Conky
+
+Find your network interface:
+```bash
+ip link show | grep "state UP"
+```
+
+Edit both conky configs to use your interface name (e.g., replace `enp12s0` with yours):
+- `~/.config/conky/conky_right.conf`
+- `~/.config/conky/conky_left.conf`
+
+## Managing Dotfiles
 
 ```bash
-# Check status of tracked files
+# Check status
 config status
 
-# Add new configuration files
-config add .config/neovim/init.vim
+# Add new files
+config add ~/.config/nvim/init.vim
 
 # Commit changes
-config commit -m "Update neovim configuration"
+config commit -m "Update configuration"
 
-# Push to remote repository
+# Push to remote
 config push
 
-# Pull updates from remote
+# Pull updates
 config pull
 
-# View all tracked files
+# View tracked files
 config ls-files
 ```
 
-### Updating Your Setup
-
-
-**Update Oh My Zsh:**
+## Updating Components
 
 ```bash
+# Update Oh My Zsh
 omz update
-```
 
-**Update Powerlevel10k:**
-
-```bash
+# Update Powerlevel10k
 git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull
-```
 
-**Update Zsh plugins:**
-
-```bash
-# zsh-autosuggestions
+# Update plugins
 git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions pull
-
-# zsh-syntax-highlighting
 git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting pull
-```
 
-**Reconfigure Powerlevel10k:**
-
-```bash
+# Reconfigure Powerlevel10k
 p10k configure
 ```
 
+## Essential Keybindings
 
+| Keybinding | Action |
+|------------|--------|
+| `$mod+Enter` | Open terminal |
+| `$mod+d` | Application launcher |
+| `$mod+q` | Kill focused window |
+| `$mod+Shift+e` | Power menu |
+| `$mod+Tab` | Window switcher |
+| `$mod+1-9` | Switch workspace |
+| `$mod+Shift+1-9` | Move window to workspace |
+| `$mod+Shift+c` | Reload i3 config |
+| `$mod+Shift+r` | Restart i3 |
+| `$mod+h/j/k/l` | Focus left/down/up/right |
+| `$mod+Shift+h/j/k/l` | Move window |
 
+**Note:** `$mod` is the Windows/Super key by default.
 
-## Resources and Credits
+## Troubleshooting
 
-### Official Documentation
+**Icons not displaying:**
+```bash
+# Verify MesloLGS NF font is installed
+fc-list | grep "MesloLGS NF"
 
-- **i3wm User Guide**: https://i3wm.org/docs/userguide.html - Complete i3 window manager documentation
-- **Kitty Terminal**: https://sw.kovidgoyal.net/kitty/ - GPU-accelerated terminal emulator
-- **Oh My Zsh Wiki**: https://github.com/ohmyzsh/ohmyzsh/wiki - Framework for managing Zsh configuration
-- **Powerlevel10k**: https://github.com/romkatv/powerlevel10k - Fast and flexible Zsh theme
-- **Rofi**: https://github.com/davatorium/rofi - Window switcher and application launcher
-- **adi1090x Rofi Collection**: https://github.com/adi1090x/rofi - Beautiful Rofi themes and applets
-- **Picom Compositor**: https://github.com/yshui/picom - Standalone compositor for X11
-- **Conky**: https://github.com/brndnmtthws/conky - Lightweight system monitor
+# Check Kitty font config
+grep "font_family" ~/.config/kitty/kitty.conf
 
-### Tutorials and Guides
+# Reconfigure Powerlevel10k
+p10k configure
+```
 
-- **Kitty + Zsh + Powerlevel10k Aesthetics**: https://dev.to/protium/kitty-zsh-powerlevel10k-aesthetics-1e81 - Complete terminal setup guide
-- **Dotfiles Management with Bare Git Repository**: https://www.atlassian.com/git/tutorials/dotfiles - Elegant dotfiles management approach
+**Conky not showing network:**
+```bash
+# Find your network interface
+ip link show | grep "state UP"
 
-### Community Resources
+# Update interface name in both conky configs
+nano ~/.config/conky/conky_right.conf
+nano ~/.config/conky/conky_left.conf
+```
 
-- **r/unixporn** - Reddit community showcasing beautiful Unix/Linux customizations
-- **r/i3wm** - i3 window manager community and support
-- **ArchWiki** - Comprehensive documentation (useful for all distributions):
-  - https://wiki.archlinux.org/title/I3
-  - https://wiki.archlinux.org/title/Rofi
-  - https://wiki.archlinux.org/title/Picom
+**Rofi launcher not working:**
+```bash
+# Test manually
+rofi -show drun
 
-### Credits
+# Make script executable
+chmod +x ~/.config/rofi/launchers/type-1/launcher.sh
+```
 
-This setup guide integrates best practices and inspiration from:
-- The i3wm community for tiling window manager workflows
-- Aditya Shakya (adi1090x) for the beautiful Rofi theme collection
-- Roman Perepelitsa for the excellent Powerlevel10k theme
-- The Oh My Zsh community for the extensive plugin ecosystem
-- The dotfiles community for the bare repository management technique
+**Picom not starting:**
+```bash
+# Start manually
+picom -b
 
-## Quick Reference
+# Check if already running
+pgrep picom
+```
 
-### Essential Commands
-
-**i3wm:**
-- `$mod+Enter` - Open terminal
-- `$mod+d` - Application launcher
-- `$mod+q` - Kill focused window
-- `$mod+[1-9]` - Switch workspace
-- `$mod+Shift+c` - Reload config
-- `$mod+Shift+r` - Restart i3
-- `$mod+Tab` - Window switcher
-- `$mod+Shift+e` - Power menu
-
-**Dotfiles:**
-- `config status` - Check dotfiles status
-- `config add <file>` - Track new file
-- `config commit -m "message"` - Commit changes
-- `config push` - Push to remote
-- `config pull` - Pull updates
-
-**Shell:**
-- `p10k configure` - Reconfigure prompt
-- `omz update` - Update Oh My Zsh
-
-### File Locations Reference
+## File Locations
 
 ```
 ~/.config/i3/config              # i3wm configuration
 ~/.config/kitty/kitty.conf       # Kitty terminal config
 ~/.zshrc                         # Zsh configuration
 ~/.p10k.zsh                      # Powerlevel10k settings
-~/.config/rofi/                  # Rofi configurations and themes
-~/.config/conky/conky.conf       # Conky system monitor config
+~/.config/rofi/                  # Rofi configurations
+~/.config/conky/                 # Conky configs
 ~/.config/picom/picom.conf       # Picom compositor config
+~/.cfg/                          # Dotfiles bare repository
 ```
+
+## Resources
+
+- [i3wm Documentation](https://i3wm.org/docs/userguide.html)
+- [Kitty Terminal](https://sw.kovidgoyal.net/kitty/)
+- [Oh My Zsh Wiki](https://github.com/ohmyzsh/ohmyzsh/wiki)
+- [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [adi1090x Rofi Collection](https://github.com/adi1090x/rofi)
+- [Dotfiles Management Guide](https://www.atlassian.com/git/tutorials/dotfiles)
+- [Kitty + Zsh + P10k Setup Guide](https://dev.to/protium/kitty-zsh-powerlevel10k-aesthetics-1e81)
+
+## Credits
+
+- i3wm community for tiling window manager workflows
+- Aditya Shakya (adi1090x) for the beautiful Rofi collection
+- Roman Perepelitsa for Powerlevel10k theme
+- Oh My Zsh community for plugins ecosystem
+- Dotfiles community for bare repository method
 
 ---
 
-**Note**: This documentation is designed for a fresh Linux installation. Always backup your existing configurations before applying these dotfiles. For system-specific adjustments, consult the troubleshooting section or refer to the official documentation links provided.
+**License:** MIT
+
+**Author:** JaydeeNub
