@@ -37,101 +37,9 @@ Before starting, ensure you have a fresh Linux installation with:
 - **User Privileges**: Sudo access for installing packages
 - **Backup**: Create backups of any existing configuration files
 
-## Step-by-Step Installation
 
-### Phase 1: Install Core System Packages
 
-#### On Ubuntu/Debian
-
-```bash
-# Update package lists
-sudo apt update
-
-# Install core window manager and utilities
-sudo apt install -y i3 i3status i3lock dmenu \
-    xorg xserver-xorg xinit \
-    build-essential git curl wget
-
-# Install additional tools
-sudo apt install -y rofi conky picom \
-    kitty zsh \
-    feh nitrogen lxappearance \
-    dunst libnotify-bin \
-    brightnessctl \
-    pavucontrol pulseaudio \
-    network-manager-applet \
-    scrot maim xclip
-```
-
-#### On Arch Linux
-
-```bash
-# Update system
-sudo pacman -Syu
-
-# Install core packages
-sudo pacman -S i3-wm i3status i3lock rofi \
-    xorg xorg-xinit \
-    base-devel git curl wget
-
-# Install additional tools
-sudo pacman -S conky picom kitty zsh \
-    feh nitrogen lxappearance \
-    dunst libnotify \
-    brightnessctl \
-    pavucontrol pulseaudio \
-    network-manager-applet \
-    maim xclip scrot
-```
-
-#### On Fedora
-
-```bash
-# Update system
-sudo dnf update -y
-
-# Install core packages
-sudo dnf install -y i3 i3-ipc i3status i3lock rofi \
-    xorg-x11-server-Xorg xorg-x11-xinit \
-    @development-tools git curl wget
-
-# Install additional tools
-sudo dnf install -y conky picom kitty zsh \
-    feh nitrogen lxappearance \
-    dunst libnotify \
-    brightnessctl \
-    pavucontrol pulseaudio \
-    network-manager-applet \
-    scrot maim xclip
-```
-
-### Phase 2: Install and Configure Fonts
-
-**Essential: Install Nerd Fonts for proper icon display**
-
-Powerlevel10k requires MesloLGS NF (Meslo Nerd Font) for all icons and symbols to display correctly.
-
-```bash
-# Create fonts directory
-mkdir -p ~/.local/share/fonts
-
-# Download MesloLGS NF fonts
-cd ~/.local/share/fonts
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-
-# Update font cache
-fc-cache -fv
-
-# Verify installation
-fc-list | grep "MesloLGS NF"
-```
-
-### Phase 3: Install Zsh and Oh My Zsh
-
-**Step 1: Install Zsh**
+**Install Zsh**
 
 ```bash
 # Verify Zsh installation
@@ -143,7 +51,7 @@ zsh --version
 # Fedora: sudo dnf install zsh
 ```
 
-**Step 2: Set Zsh as Default Shell**
+**Set Zsh as Default Shell**
 
 ```bash
 # Set Zsh as default shell
@@ -158,7 +66,7 @@ echo $SHELL
 
 **Important:** Log out and log back in for the shell change to take effect.
 
-**Step 3: Install Oh My Zsh**
+**Install Oh My Zsh**
 
 ```bash
 # Install Oh My Zsh via curl
@@ -168,14 +76,14 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-**Step 4: Install Powerlevel10k Theme**
+**Install Powerlevel10k Theme**
 
 ```bash
 # Clone Powerlevel10k into Oh My Zsh custom themes directory
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
-**Step 5: Install Essential Zsh Plugins**
+**Install Essential Zsh Plugins**
 
 ```bash
 # Install zsh-autosuggestions
@@ -185,7 +93,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-### Phase 4: Install Rofi Themes Collection
+### Install Rofi Themes Collection
 
 The adi1090x Rofi collection provides beautiful pre-made launchers and applets.
 
@@ -366,12 +274,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 ```bash
 plugins=(
     git
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    docker
-    kubectl
-    sudo
-    extract
+    ...
 )
 ```
 
@@ -410,248 +313,10 @@ nano ~/.config/rofi/launchers/type-1/shared/colors.rasi
 # Available: adapta, arc, catppuccin, dracula, everforest, gruvbox, nord, onedark, solarized, etc.
 ```
 
-#### Configure Conky
-
-**Location:** `~/.config/conky/conky.conf`
-
-Basic Conky configuration (Lua format):
-
-```lua
-conky.config = {
-    background = false,
-    update_interval = 1.0,
-    
-    -- Window settings for i3wm
-    own_window = true,
-    own_window_type = 'desktop',
-    own_window_transparent = true,
-    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-    
-    -- Position
-    alignment = 'top_right',
-    gap_x = 20,
-    gap_y = 50,
-    minimum_width = 250,
-    
-    -- Font
-    use_xft = true,
-    font = 'DejaVu Sans Mono:size=10',
-    
-    -- Colors
-    default_color = 'white',
-    color1 = 'gray',
-}
-
-conky.text = [[
-${color1}System Info${color}
-${hr}
-Uptime: $uptime
-CPU: ${cpu}% ${cpubar 6}
-RAM: $mem/$memmax
-${membar 6}
-Disk: ${fs_used /}/${fs_size /}
-${fs_bar 6 /}
-
-${color1}Network${color}
-${hr}
-Down: ${downspeed eth0}
-Up: ${upspeed eth0}
-]]
-```
-
-#### Configure Picom Compositor
-
-**Location:** `~/.config/picom/picom.conf`
-
-```bash
-# Create picom config directory
-mkdir -p ~/.config/picom
-
-# Copy default config as starting point
-cp /etc/xdg/picom.conf ~/.config/picom/picom.conf
-
-# Edit for i3wm optimization
-nano ~/.config/picom/picom.conf
-```
-
-**Essential settings for i3wm:**
-
-```conf
-# Backend (GLX for best performance)
-backend = "glx";
-vsync = true;
-
-# Shadows
-shadow = true;
-shadow-radius = 12;
-shadow-offset-x = -7;
-shadow-offset-y = -7;
-shadow-opacity = 0.7;
-
-# Exclude i3 window borders and bars from shadows
-shadow-exclude = [
-    "class_g = 'i3-frame'",
-    "class_g = 'i3bar'"
-];
-
-# Fading
-fading = true;
-fade-delta = 5;
-fade-in-step = 0.03;
-fade-out-step = 0.03;
-
-# Transparency
-inactive-opacity = 0.85;
-active-opacity = 1.0;
-frame-opacity = 0.9;
-
-# Blur (optional, may impact performance)
-blur-background = true;
-blur-method = "dual_kawase";
-blur-strength = 5;
-
-# Performance
-glx-no-stencil = true;
-glx-no-rebind-pixmap = true;
-```
-
-### Phase 7: Set Up Autostart
-
-**Edit i3 config** (`~/.config/i3/config`) to ensure applications start automatically:
-
-```bash
-# Add these lines to your i3 config
-
-# Compositor
-exec_always --no-startup-id picom -b
-
-# System monitor
-exec_always --no-startup-id conky
-
-# Notification daemon
-exec --no-startup-id dunst
-
-# Network manager applet
-exec --no-startup-id nm-applet
-
-# Wallpaper (if using feh)
-exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/main.jpg
-
-# Or wallpaper (if using nitrogen)
-exec_always --no-startup-id nitrogen --restore
-
-# Audio control
-exec --no-startup-id pulseaudio --start
-```
-
-### Phase 8: Configure Keybindings
-
-**Essential i3 keybindings** to add or verify in `~/.config/i3/config`:
-
-```bash
-# Set modifier key (Windows key)
-set $mod Mod4
-
-# Terminal
-bindsym $mod+Return exec --no-startup-id kitty
-
-# Rofi application launcher
-bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-1/launcher.sh
-
-# Rofi window switcher
-bindsym $mod+Tab exec --no-startup-id rofi -show window
-
-# Rofi powermenu
-bindsym $mod+Escape exec --no-startup-id ~/.config/rofi/powermenu/type-1/powermenu.sh
-
-# Rofi applets
-bindsym $mod+n exec --no-startup-id ~/.config/rofi/applets/bin/network.sh
-bindsym $mod+v exec --no-startup-id ~/.config/rofi/applets/bin/volume.sh
-
-# Screenshots
-bindsym Print exec --no-startup-id maim ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
-bindsym $mod+Print exec --no-startup-id maim -s ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
-
-# Volume control (if using pactl)
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-# Brightness control
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
-
-# Lock screen
-bindsym $mod+Shift+x exec --no-startup-id i3lock -c 000000
-
-# Reload i3 config
-bindsym $mod+Shift+c reload
-
-# Restart i3
-bindsym $mod+Shift+r restart
-
-# Restart picom
-bindsym $mod+Shift+p exec --no-startup-id "killall picom; picom -b"
-```
-
-### Phase 9: Final Setup and Testing
-
-**Step 1: Reload all configurations**
-
-```bash
-# Reload Zsh configuration
-source ~/.zshrc
-
-# Reload i3 configuration
-i3-msg reload
-
-# Or restart i3 completely
-i3-msg restart
-```
-
-**Step 2: Test each component**
-
-1. **Terminal and Shell:**
-   - Press `$mod+Return` to open Kitty
-   - Verify MesloLGS NF font displays correctly
-   - Check Powerlevel10k theme appears with icons
-   - Test autosuggestions by typing partial commands
-
-2. **Application Launcher:**
-   - Press `$mod+d` to open Rofi launcher
-   - Type application names to search
-   - Verify theme and colors display correctly
-
-3. **Window Management:**
-   - Open multiple windows
-   - Test tiling (horizontal/vertical splits)
-   - Switch between workspaces with `$mod+[1-9]`
-   - Move windows between workspaces with `$mod+Shift+[1-9]`
-
-4. **Visual Effects:**
-   - Verify transparency on unfocused windows
-   - Check shadows appear around windows
-   - Test fading effects when opening/closing windows
-
-5. **System Monitor:**
-   - Verify Conky appears in the correct position
-   - Check system information updates in real-time
-
-**Step 3: Log out and log in through display manager**
-
-```bash
-# Log out
-i3-msg exit
-
-# Select i3 from your display manager
-# Log in with your credentials
-```
-
-All components should now start automatically on login.
 
 ## Managing Your Dotfiles
 
-### Daily Usage Commands
+### Repo Usage Commands
 
 ```bash
 # Check status of tracked files
@@ -675,18 +340,6 @@ config ls-files
 
 ### Updating Your Setup
 
-**Update system packages:**
-
-```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt upgrade
-
-# Arch
-sudo pacman -Syu
-
-# Fedora
-sudo dnf update
-```
 
 **Update Oh My Zsh:**
 
@@ -716,256 +369,8 @@ git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting pull
 p10k configure
 ```
 
-## Troubleshooting
 
-### i3wm Issues
 
-**Black screen on login:**
-- Check logs: `journalctl -xe | grep i3`
-- Verify X server: `echo $DISPLAY`
-- Check i3 config syntax: `i3 -C -c ~/.config/i3/config`
-
-**Keybindings not working:**
-- Reload config: `$mod+Shift+c`
-- Verify modifier key: `xmodmap | grep mod`
-- Check for conflicts in config
-
-**Windows not tiling correctly:**
-- Verify i3 is running: `pgrep i3`
-- Check window rules in config
-- Reset layout: `$mod+e`
-
-### Terminal and Shell Issues
-
-**Icons not displaying in Powerlevel10k:**
-- Verify MesloLGS NF font is installed: `fc-list | grep MesloLGS`
-- Check Kitty font config: `cat ~/.config/kitty/kitty.conf | grep font_family`
-- Run font configuration: `p10k configure`
-
-**Zsh plugins not working:**
-- Check plugins are installed: `ls ~/.oh-my-zsh/custom/plugins/`
-- Verify plugins enabled in `.zshrc`: `grep "plugins=" ~/.zshrc`
-- Reload Zsh: `source ~/.zshrc`
-
-**Slow Zsh startup:**
-- Enable instant prompt in Powerlevel10k
-- Disable unused plugins
-- Profile startup: Add `zmodload zsh/zprof` to top of `.zshrc` and `zprof` to bottom
-
-### Rofi Issues
-
-**Rofi launcher not appearing:**
-- Test manually: `rofi -show drun`
-- Check script permissions: `ls -l ~/.config/rofi/launchers/type-1/launcher.sh`
-- Make executable: `chmod +x ~/.config/rofi/launchers/type-1/launcher.sh`
-
-**Themes not applying:**
-- Verify theme files exist: `ls ~/.config/rofi/themes/`
-- Check color imports in config
-- Run theme selector: `rofi-theme-selector`
-
-### Visual Effects Issues
-
-**Picom not starting:**
-- Check if running: `pgrep picom`
-- Start manually: `picom -b`
-- Check logs: `picom --log-level=debug --log-file=/tmp/picom.log`
-
-**No transparency or shadows:**
-- Verify backend: Check `backend = "glx"` in picom.conf
-- Test OpenGL support: `glxinfo | grep "direct rendering"`
-- Try alternate backend: `backend = "xrender"`
-
-**Screen tearing:**
-- Enable VSync in picom.conf: `vsync = true`
-- Try different backend
-- Check graphics drivers
-
-### Conky Issues
-
-**Conky not visible:**
-- Check if running: `pgrep conky`
-- Verify window settings in config
-- For i3wm, ensure: `own_window_type = 'desktop'`
-
-**Conky displays on wrong monitor:**
-- Set alignment and gap values in config
-- Use `xrandr` to identify monitor layout
-- Adjust `gap_x` and `gap_y` values
-
-### Font Issues
-
-**Missing or broken icons:**
-```bash
-# Reinstall fonts
-cd ~/.local/share/fonts
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-fc-cache -fv
-```
-
-### Dotfiles Management Issues
-
-**"Not a git repository" error:**
-```bash
-# Verify .cfg exists
-ls -la ~/.cfg
-
-# Re-create alias
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-```
-
-**Too many untracked files showing:**
-```bash
-config config --local status.showUntrackedFiles no
-```
-
-**Conflicts when checking out:**
-```bash
-# Backup conflicting files
-mkdir -p ~/.config-backup
-config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} ~/.config-backup/{}
-config checkout
-```
-
-## Customization Guide
-
-### Changing Color Schemes
-
-**i3wm colors:**
-
-Edit `~/.config/i3/config`:
-
-```bash
-# Define color variables
-set $bg-color            #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676e7d
-set $urgent-bg-color     #e53935
-
-# Apply to windows
-# class                 border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
-```
-
-**Kitty colors:**
-
-Edit `~/.config/kitty/kitty.conf`:
-
-```conf
-# Example: Gruvbox Dark color scheme
-background  #282828
-foreground  #ebdbb2
-cursor      #ebdbb2
-
-# Black
-color0  #282828
-color8  #928374
-
-# Red
-color1  #cc241d
-color9  #fb4934
-
-# Green
-color2  #98971a
-color10 #b8bb26
-
-# Yellow
-color3  #d79921
-color11 #fabd2f
-
-# Blue
-color4  #458588
-color12 #83a598
-
-# Magenta
-color5  #b16286
-color13 #d3869b
-
-# Cyan
-color6  #689d6a
-color14 #8ec07c
-
-# White
-color7  #a89984
-color15 #ebdbb2
-```
-
-**Rofi colors:**
-
-Edit `~/.config/rofi/launchers/type-1/shared/colors.rasi`:
-
-```css
-/* Change color scheme import */
-@import "~/.config/rofi/colors/gruvbox.rasi"
-/* Available: dracula, nord, catppuccin, onedark, solarized, etc. */
-```
-
-### Adding Custom Scripts
-
-Create a scripts directory:
-
-```bash
-mkdir -p ~/.local/bin
-
-# Add to PATH in .zshrc
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-```
-
-**Example: Custom lock screen script**
-
-Create `~/.local/bin/lock.sh`:
-
-```bash
-#!/bin/bash
-# Take screenshot, blur it, and use as lock screen background
-maim /tmp/screenshot.png
-convert /tmp/screenshot.png -blur 0x8 /tmp/screenshot-blur.png
-i3lock -i /tmp/screenshot-blur.png
-```
-
-Make executable and use:
-
-```bash
-chmod +x ~/.local/bin/lock.sh
-
-# Add to i3 config
-bindsym $mod+Shift+x exec --no-startup-id ~/.local/bin/lock.sh
-```
-
-### Workspace Customization
-
-Define named workspaces in i3 config:
-
-```bash
-# Define workspace names
-set $ws1 "1:  Terminal"
-set $ws2 "2:  Web"
-set $ws3 "3:  Code"
-set $ws4 "4:  Files"
-set $ws5 "5:  Media"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10:  Music"
-
-# Assign applications to workspaces
-assign [class="Firefox"] $ws2
-assign [class="Code"] $ws3
-assign [class="Spotify"] $ws10
-
-# Switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-# ... etc
-```
 
 ## Resources and Credits
 
@@ -1010,15 +415,12 @@ This setup guide integrates best practices and inspiration from:
 **i3wm:**
 - `$mod+Enter` - Open terminal
 - `$mod+d` - Application launcher
-- `$mod+Shift+q` - Kill window
+- `$mod+q` - Kill focused window
 - `$mod+[1-9]` - Switch workspace
 - `$mod+Shift+c` - Reload config
 - `$mod+Shift+r` - Restart i3
-
-**Rofi:**
-- `$mod+d` - Application launcher
 - `$mod+Tab` - Window switcher
-- `$mod+Escape` - Power menu
+- `$mod+Shift+e` - Power menu
 
 **Dotfiles:**
 - `config status` - Check dotfiles status
@@ -1041,7 +443,6 @@ This setup guide integrates best practices and inspiration from:
 ~/.config/rofi/                  # Rofi configurations and themes
 ~/.config/conky/conky.conf       # Conky system monitor config
 ~/.config/picom/picom.conf       # Picom compositor config
-~/.cfg/                          # Dotfiles bare git repository
 ```
 
 ---
