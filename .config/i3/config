@@ -411,7 +411,7 @@ exec_always $HOME/.config/i3/scripts/import-gsettings
 # for custom config:
 exec_always --no-startup-id picom --config  ~/.config/picom/picom.conf
 
-
+exec --no-startup-id setxkbmap -option lv3:caps_switch
 ## applications/services
 
 

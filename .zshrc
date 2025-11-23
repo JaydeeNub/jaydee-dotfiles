@@ -78,6 +78,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+	colors
 	autojump
 	colored-man-pages
 	colorize
@@ -86,10 +87,6 @@ plugins=(
 	gitignore
 	history
 	jump
-	nmap
-	pip
-	python
-	virtualenv
 	vscode
 	z
 	zsh-syntax-highlighting
