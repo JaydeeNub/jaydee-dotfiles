@@ -177,8 +177,13 @@ bindsym $mod+Return exec --no-startup-id /usr/bin/kitty
 # kill focused window
 bindsym $mod+q kill
 
+
+
 # exit-menu
-bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
+bindsym $mod+Shift+e exec --no-startup-id /home/jaydee/.config/rofi/powermenu/type-2/powermenu.sh
+# quicklinks
+bindsym $mod+Shift+q exec --no-startup-id /home/jaydee/.config/rofi/applets/bin/quicklinks.sh
+
 
 # Lock the system
 # lock with a picture:
@@ -218,10 +223,10 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_b
 #bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness2.sh screen_brightness_down
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+b focus up
-bindsym $mod+o focus right
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+b focus up
+# bindsym $mod+o focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -230,10 +235,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+b move up
-bindsym $mod+Shift+o move right
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+b move up
+# bindsym $mod+Shift+o move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -340,11 +345,11 @@ set $ws10 "10"
 # assign [class="TelegramDesktop"] $ws5
 
 # automatic set focus new window if it opens on another workspace than the current:
-for_window [class=Xfce4-terminal] focus
-for_window [class=(?i)firefox] focus
-for_window [class=Thunar] focus
-for_window [class=Thunderbird] focus
-for_window [class=TelegramDesktop] focus
+# for_window [class=Xfce4-terminal] focus
+# for_window [class=(?i)firefox] focus
+# for_window [class=Thunar] focus
+# for_window [class=Thunderbird] focus
+# for_window [class=TelegramDesktop] focus
 
 ##################
 # floating rules #
@@ -419,7 +424,7 @@ exec --no-startup-id dex --autostart --environment i3
 #exec --no-startup-id sh /usr/share/endeavouros/scripts/welcome --startdelay=3
 
 # num lock activated
-#exec --no-startup-id numlockx on
+exec --no-startup-id numlockx on
 
 # configure multiple keyboard layouts and hotkey to switch (Alt+CAPSLOCK in this example)
 #exec --no-startup-id setxkbmap -layout 'us,sk' -variant altgr-intl,qwerty -option 'grp:alt_caps_toggle'
@@ -582,14 +587,10 @@ client.urgent               $urgentred  $urgentred  $white      $yellowbrown    
 
 ## rofi bindings fancy application menu
 
-bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
-        -config ~/.config/rofi/rofidmenu.rasi
-
+bindsym $mod+d exec --no-startup-id /home/jaydee/.config/rofi/launchers/type-2/launcher.sh
 ## rofi bindings for window menu
 
-bindsym $mod+t exec --no-startup-id rofi -show window \
-        -config ~/.config/rofi/rofidmenu.rasi
-
+bindsym $mod+t exec --no-startup-id /home/jaydee/.config/rofi/launchers/type-2/window.sh
 ## rofi bindings to manage clipboard (install rofi-greenclip from the AUR)
 
 #exec --no-startup-id greenclip daemon>/dev/null
