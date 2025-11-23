@@ -23,10 +23,11 @@
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango: Noto Sans Regular 10
+font pango:JetBrainsMono 10
 
 # set the mod key to the winkey:
 set $mod Mod4
+
 
 #####################
 # workspace layout: #
@@ -183,9 +184,10 @@ bindsym $mod+q kill
 bindsym $mod+Shift+e exec --no-startup-id /home/jaydee/.config/rofi/powermenu/type-2/powermenu.sh
 # quicklinks
 bindsym $mod+Shift+q exec --no-startup-id /home/jaydee/.config/rofi/applets/bin/quicklinks.sh
+#volume control
+bindsym $mod+Shift+v exec --no-startup-id /home/jaydee/.config/rofi/applets/bin/volume.sh
 
-
-# Lock the system
+# Lock the systemV
 # lock with a picture:
 #bindsym $mod+l exec --no-startup-id i3lock -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
 # lock by blurring the screen:
@@ -593,6 +595,6 @@ bindsym $mod+d exec --no-startup-id /home/jaydee/.config/rofi/launchers/type-2/l
 bindsym $mod+t exec --no-startup-id /home/jaydee/.config/rofi/launchers/type-2/window.sh
 ## rofi bindings to manage clipboard (install rofi-greenclip from the AUR)
 
-#exec --no-startup-id greenclip daemon>/dev/null
-#bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
-#       -config ~/.config/rofi/rofidmenu.rasi
+exec --no-startup-id greenclip daemon>/dev/null
+bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
+       -config ~/.config/rofi/rofidmenu.rasi
