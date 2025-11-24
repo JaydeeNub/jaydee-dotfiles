@@ -2,6 +2,7 @@
 
 A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with Powerlevel10k, and Rofi. Built on EndevourOS i3vm setup
 
+
 ## What's Included
 
 - **i3wm** - Tiling window manager
@@ -12,28 +13,8 @@ A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with
 - **Conky** - System monitor displaying real-time information
 - **Picom** - Compositor for transparency and visual effects
 
-### Prerequisites
 
-- Fresh Linux installation (Ubuntu 20.04+, Debian 11+, Arch, Fedora 35+)
-- X11 (Xorg) display server
-- Internet connection
-- Sudo privileges
-
-
-
-### Update Network Interface in Conky
-
-Find your network interface:
-```bash
-ip link show | grep "state UP"
-```
-
-Edit both 'conky_left.conf' to use your interface name (e.g., replace `enp12s0` with yours):
-
-`~/.config/conky/conky_left.conf`
-
-
-### Essential Keybindings
+## Essential Keybindings
 
 | Keybinding | Action |
 |------------|--------|
@@ -56,7 +37,6 @@ Edit both 'conky_left.conf' to use your interface name (e.g., replace `enp12s0` 
 **Note:** `$mod` is the Windows/Super key by default. It can be changed on top of i3wm config file
 
 
-
 # Resources
 
 - [i3wm Documentation](https://i3wm.org/docs/userguide.html)
@@ -66,6 +46,7 @@ Edit both 'conky_left.conf' to use your interface name (e.g., replace `enp12s0` 
 - [adi1090x Rofi Collection](https://github.com/adi1090x/rofi)
 - [Dotfiles Management Guide](https://www.atlassian.com/git/tutorials/dotfiles)
 - [Kitty + Zsh + P10k Setup Guide](https://dev.to/protium/kitty-zsh-powerlevel10k-aesthetics-1e81)
+
 
 # Credits
 
