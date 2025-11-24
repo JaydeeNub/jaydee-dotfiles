@@ -56,4 +56,3 @@ A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with
 - Oh My Zsh community for plugins ecosystem
 - Dotfiles community for bare repository method
 
----
