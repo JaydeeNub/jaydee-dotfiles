@@ -123,7 +123,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 
 alias zshs="source ~/.zshrc"
-alias zshc="nano ~/.zshrc"
+alias zshc="code ~/.zshrc"
 
 alias sup="sudo pacman -Syu"
 alias ins="sudo pacman -S"
@@ -132,6 +132,11 @@ alias rem="sudo pacman -Rns"
 
 alias c="clear"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+#dotfiles repo commands
+alias dotpush="config push -u origin main"
+alias dotstat="config status"
+alias dotcomit="config commit -am"
 
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
