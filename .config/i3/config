@@ -276,7 +276,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id numlockx on
 
 # Conky system monitor
-exec_always --no-startup-id ~/.config/conky/start_conky.sh
+#exec_always --no-startup-id ~/.config/conky/start_conky.sh
 
 # Display setup script
 exec --no-startup-id ~/.screenlayout/monitor.sh
