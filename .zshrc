@@ -48,7 +48,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -77,6 +77,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 plugins=(
 	colors
 	autojump
@@ -122,24 +123,24 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 
-alias zshs="source ~/.zshrc"
-alias zshc="code ~/.zshrc"
+alias zshs="source ~/.zshrc"		# Source .zshrc
+alias zshc="code ~/.zshrc"			# Config .zshrc with VSC
 
-alias sup="sudo pacman -Syu"
-alias ins="sudo pacman -S"
-alias spac="pacman -Ss"
-alias rem="sudo pacman -Rns"
+alias sup="sudo pacman -Syu"		# Full system update
+alias ins="sudo pacman -S"			# Install Package
+alias spac="pacman -Ss"				# Search for package
+alias rem="sudo pacman -Rns"		# Remove Package
 
-alias c="clear"
+alias c="clear"						# clear screen
 
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 #dotfiles repo commands
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias dotpush="config push -u origin main"
 alias dotstat="config status"
 alias dotcomit="config commit -am"
 
-alias lah="ls -lah"
-alias lh="ls -lh"
+alias lah="ls -lah"					# List all human readable
+alias lh="ls -lh"					# List human readable
 
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
