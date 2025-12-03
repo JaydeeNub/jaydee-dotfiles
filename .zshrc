@@ -142,6 +142,8 @@ alias dotcomit="config commit -am"
 alias lah="ls -lah"					# List all human readable
 alias lh="ls -lh"					# List human readable
 
+alias comp="g++ -std=c++11 -Wall"   # Compile c++ code
+
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
