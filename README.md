@@ -1,6 +1,17 @@
 # Linux Dotfiles
 
-A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with Powerlevel10k, and Rofi. Built on EndevourOS i3vm setup
+A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with Powerlevel10k, and Rofi. Built on EndevourOS i3wm setup.
+
+---
+
+## Table of Contents
+- [What's Included](#whats-included)
+- [Installation](#installation)
+- [Dependencies](#dependencies)
+- [Keyboard Shortcuts](#keyboard-shortcuts-reference)
+- [Troubleshooting](#troubleshooting)
+- [Resources](#resources)
+- [Credits](#credits)
 
 ---
 
@@ -13,6 +24,104 @@ A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with
 - **Rofi** - Application launcher with custom themes
 - **Conky** - System monitor displaying real-time information
 - **Picom** - Compositor for transparency and visual effects
+
+---
+
+## Installation
+
+### Quick Start
+
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/yourusername/jaydee-dotfiles.git ~/Projects/jaydee-dotfiles
+   cd ~/Projects/jaydee-dotfiles
+   ```
+
+2. **Install dependencies** (see [Dependencies](#dependencies) section or check `packages.txt`):
+   ```bash
+   # Install all required packages (Arch Linux):
+   sudo pacman -S i3-wm i3status autotiling kitty zsh rofi picom conky feh dunst \
+                  flameshot i3lock imagemagick ttf-jetbrains-mono pulseaudio \
+                  pavucontrol playerctl numlockx xss-lock dex net-tools
+   ```
+
+3. **Install Oh My Zsh:**
+   ```bash
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+   ```
+
+4. **Install Powerlevel10k theme:**
+   ```bash
+   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+             ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+   ```
+
+5. **Install Zsh plugins:**
+   ```bash
+   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+             ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+   git clone https://github.com/zsh-users/zsh-autosuggestions.git \
+             ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+   ```
+
+6. **Symlink configuration files:**
+   ```bash
+   # Backup existing configs first!
+   mkdir -p ~/.config/backup
+   cp -r ~/.config/i3 ~/.config/backup/ 2>/dev/null || true
+   cp ~/.zshrc ~/.zshrc.backup 2>/dev/null || true
+
+   # Symlink dotfiles
+   ln -sf ~/Projects/jaydee-dotfiles/.zshrc ~/.zshrc
+   ln -sf ~/Projects/jaydee-dotfiles/.zshenv ~/.zshenv
+   ln -sf ~/Projects/jaydee-dotfiles/.p10k.zsh ~/.p10k.zsh
+   ln -sf ~/Projects/jaydee-dotfiles/.config/i3 ~/.config/
+   ln -sf ~/Projects/jaydee-dotfiles/.config/kitty ~/.config/
+   ln -sf ~/Projects/jaydee-dotfiles/.config/rofi ~/.config/
+   ln -sf ~/Projects/jaydee-dotfiles/.config/picom ~/.config/
+   ln -sf ~/Projects/jaydee-dotfiles/.config/conky ~/.config/
+   ```
+
+7. **Configure displays:**
+   ```bash
+   # Check your display names
+   xrandr
+
+   # Edit i3 config to match your displays
+   # Update workspace assignments in ~/.config/i3/config (lines 34-42)
+   ```
+
+8. **Set wallpaper path:**
+   ```bash
+   # Edit i3 config and update wallpaper path (line 281)
+   # Or create the expected directory:
+   mkdir -p ~/Pictures/Wallpapers
+   # Add your wallpaper as dark-wallpaper.jpg
+   ```
+
+9. **Log out and select i3 from your display manager**, or restart i3 with `$mod+Shift+r`
+
+---
+
+## Dependencies
+
+See `packages.txt` for a complete list of required packages.
+
+### Core Requirements
+- i3-wm or i3-gaps
+- kitty
+- zsh + oh-my-zsh
+- rofi
+- picom
+- feh
+- dunst
+
+### Optional but Recommended
+- autotiling
+- conky
+- flameshot
+- greenclip (AUR)
+- brave-bin or firefox
 
 ---
 
@@ -242,6 +351,67 @@ A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with
 ---
 
 **Note:** `$mod` is the Windows/Super key by default. It can be changed on top of i3wm config file
+
+---
+
+## Troubleshooting
+
+### i3 won't start or crashes
+- Check i3 config syntax: `i3 -C`
+- Review i3 logs: `~/.local/share/xorg/Xorg.0.log` or use `journalctl -xe`
+- Verify all referenced scripts exist in `~/.config/i3/scripts/`
+
+### Rofi menus not working
+- Ensure rofi is installed: `pacman -Q rofi`
+- Check that rofi scripts are executable: `chmod +x ~/.config/rofi/**/*.sh`
+- Verify script paths in i3 config match your rofi installation
+
+### Fonts not displaying correctly
+- Install required fonts: `sudo pacman -S ttf-jetbrains-mono`
+- Install Nerd Fonts: `yay -S nerd-fonts-jetbrains-mono`
+- Rebuild font cache: `fc-cache -fv`
+
+### Picom not working or screen tearing
+- Try switching backends in `~/.config/picom/picom.conf`:
+  - `backend = "glx";` (default, fastest)
+  - `backend = "xrender";` (if glx has issues)
+- Check if picom is running: `ps aux | grep picom`
+- Restart picom: `killall picom && picom --config ~/.config/picom/picom.conf &`
+
+### Zsh plugins not loading
+- Ensure plugins are installed in `${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/`
+- Check plugin names match directory names
+- Reload zsh: `source ~/.zshrc` or `zshs` alias
+
+### Workspace assignments not working
+- Run `xrandr` to check your display names
+- Update workspace assignments in i3 config (lines 34-42) to match your displays
+- The `primary` fallback ensures workspaces appear even if specific outputs aren't connected
+
+### Wallpaper not loading
+- Verify wallpaper path exists: `ls ~/Pictures/Wallpapers/dark-wallpaper.jpg`
+- Check if feh is installed: `pacman -Q feh`
+- Manually set wallpaper: `feh --bg-fill ~/Pictures/Wallpapers/dark-wallpaper.jpg`
+
+### Sound not working
+- Check PulseAudio: `pulseaudio --check`
+- Use pavucontrol to configure audio devices
+- Restart PulseAudio: `pulseaudio -k && pulseaudio --start`
+
+### Greenclip clipboard not working
+- Install greenclip: `yay -S greenclip`
+- Uncomment clipboard keybinding in i3 config (line 121-122)
+- Verify daemon is running: `ps aux | grep greenclip`
+
+### Display configuration issues
+- Create display script: `mkdir -p ~/.screenlayout && touch ~/.screenlayout/monitor.sh && chmod +x ~/.screenlayout/monitor.sh`
+- Use arandr for GUI display configuration: `sudo pacman -S arandr`
+- Save configuration from arandr to `~/.screenlayout/monitor.sh`
+
+### Performance issues
+- Disable picom if not needed: comment out line 263 in i3 config
+- Reduce gaps: edit `gaps inner` and `gaps outer` values in i3 config
+- Check system resources: use `htop` or the `pscpu`/`psmem` aliases
 
 ---
 
