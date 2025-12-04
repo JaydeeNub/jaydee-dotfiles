@@ -80,14 +80,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
 	colors
-	autojump
 	colored-man-pages
 	colorize
 	command-not-found
 	extract
 	gitignore
 	history
-	jump
 	vscode
 	z
 	zsh-syntax-highlighting
@@ -97,6 +95,17 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+# Enhanced history configuration
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE=~/.zsh_history
+setopt EXTENDED_HISTORY          # Write format ': <beginning time>:<elapsed seconds>;<command>'
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first
+setopt HIST_IGNORE_DUPS          # Don't record duplicates
+setopt HIST_IGNORE_SPACE         # Don't record commands starting with space
+setopt HIST_VERIFY               # Show command with history expansion before running
+setopt SHARE_HISTORY             # Share history between sessions
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -131,8 +140,17 @@ alias ins="sudo pacman -S"			# Install Package
 alias spac="pacman -Ss"				# Search for package
 alias rem="sudo pacman -Rns"		# Remove Package
 alias yem="yay -Rns"				# Remove yay package
+alias orphans="sudo pacman -Rns \$(pacman -Qtdq 2>/dev/null)"  # Remove orphaned packages
+alias pacc="sudo pacman -Sc"		# Clean package cache
+alias paci="pacman -Qi"				# Info about installed package
 
 alias c="clear"						# clear screen
+
+# System information aliases
+alias ports="netstat -tulanp"		# Show open ports
+alias myip="curl -s ifconfig.me"	# Show public IP
+alias psmem="ps auxf | sort -nr -k 4 | head -10"  # Top 10 memory-consuming processes
+alias pscpu="ps auxf | sort -nr -k 3 | head -10"  # Top 10 CPU-consuming processes
 
 #dotfiles repo commands
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -145,8 +163,9 @@ alias dotcomit="config commit -am"
 
 #alias comp="g++ -std=c++11 -Wall"   # Compile c++ code
 
-# Backup home folder
-alias bkhome="sudo rsync -aAXv --exclude='.*' /home/$USER/ /mnt/backup-home"
+# Backup home folder (dry-run by default for safety)
+alias bkhome-preview="rsync -aAXv --dry-run --exclude='.*' /home/$USER/ /mnt/backup-home"
+alias bkhome-run="rsync -aAXv --exclude='.*' /home/$USER/ /mnt/backup-home"
 
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"

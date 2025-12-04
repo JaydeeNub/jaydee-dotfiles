@@ -29,16 +29,17 @@ set $ws9 "9"
 #set $ws10 "10"
 
 # Assign workspaces to displays
-# Replace DP-2/DP-5/HDMI-0 with your display names from xrandr
-workspace $ws1 output DP-2
-workspace $ws2 output DP-5
-workspace $ws3 output HDMI-0
-workspace $ws4 output DP-2
-workspace $ws5 output DP-5
-workspace $ws6 output HDMI-0
-workspace $ws7 output DP-2
-workspace $ws8 output DP-5
-workspace $ws9 output HDMI-0
+# Note: Run 'xrandr' to see your display names and update these accordingly
+# If displays are not connected, workspaces will default to available outputs
+workspace $ws1 output DP-2 primary
+workspace $ws2 output DP-5 primary
+workspace $ws3 output HDMI-0 primary
+workspace $ws4 output DP-2 primary
+workspace $ws5 output DP-5 primary
+workspace $ws6 output HDMI-0 primary
+workspace $ws7 output DP-2 primary
+workspace $ws8 output DP-5 primary
+workspace $ws9 output HDMI-0 primary
 
 # Assign applications to specific workspaces
 #assign [class="code"] $ws1
@@ -53,13 +54,17 @@ workspace $ws9 output HDMI-0
 workspace_layout default
 
 # Border settings
-new_window pixel 1
+default_border pixel 1
+default_floating_border pixel 1
 hide_edge_borders both
 
 # Gaps configuration
 gaps inner 3
 gaps outer 1
 smart_gaps on
+
+# Workspace behavior
+workspace_auto_back_and_forth yes
 
 ################################################################################
 # COLOR SCHEME
@@ -96,10 +101,10 @@ bindsym $mod+Return exec --no-startup-id /usr/bin/kitty
 bindsym $mod+b exec --no-startup-id brave
 
 # Application launcher (rofi)
-bindsym $mod+d exec --no-startup-id /home/jaydee/.config/rofi/launchers/type-2/launcher.sh
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-2/launcher.sh
 
 # Window menu (rofi)
-bindsym $mod+t exec --no-startup-id /home/jaydee/.config/rofi/launchers/type-2/window.sh
+bindsym $mod+t exec --no-startup-id ~/.config/rofi/launchers/type-2/window.sh
 
 # Screenshot tool
 bindsym $mod+y exec flameshot gui
@@ -109,13 +114,13 @@ bindsym $mod+y exec flameshot gui
 ################################################################################
 
 # Power menu
-bindsym $mod+Shift+e exec --no-startup-id /home/jaydee/.config/rofi/powermenu/type-2/powermenu.sh
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 # Quick links
-bindsym $mod+Shift+q exec --no-startup-id /home/jaydee/.config/rofi/applets/bin/quicklinks.sh
+bindsym $mod+Shift+q exec --no-startup-id ~/.config/rofi/applets/bin/quicklinks.sh
 
 # Volume control menu
-#bindsym $mod+Shift+v exec --no-startup-id /home/jaydee/.config/rofi/applets/bin/volume.sh
+#bindsym $mod+Shift+v exec --no-startup-id ~/.config/rofi/applets/bin/volume.sh
 
 # Clipboard manager (greenclip)
 #bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
@@ -159,6 +164,10 @@ bindsym $mod+e layout toggle split
 
 # Focus parent container
 #bindsym $mod+a focus parent
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 ################################################################################
 # KEYBINDINGS - WORKSPACE MANAGEMENT
@@ -253,6 +262,21 @@ mode "resize"
 bindsym $mod+r mode "resize"
 
 ################################################################################
+# WINDOW RULES
+################################################################################
+
+# Float specific windows
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Arandr"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+
+# Center floating windows
+for_window [floating] move position center
+
+################################################################################
 # AUTOSTART APPLICATIONS
 ################################################################################
 
@@ -278,7 +302,7 @@ exec --no-startup-id numlockx on
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # Wallpaper
-exec --no-startup-id sleep 1 && feh --bg-fill /home/jaydee/Pictures/Wallpapers/dark-wallpaper.jpg
+exec --no-startup-id sleep 1 && feh --bg-fill ~/Pictures/Wallpapers/dark-wallpaper.jpg
 
 # Notification daemon (dunst)
 exec --no-startup-id /usr/bin/dunst
