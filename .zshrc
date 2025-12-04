@@ -130,6 +130,7 @@ alias sup="sudo pacman -Syu"		# Full system update
 alias ins="sudo pacman -S"			# Install Package
 alias spac="pacman -Ss"				# Search for package
 alias rem="sudo pacman -Rns"		# Remove Package
+alias yem="yay -Rns"				# Remove yay package
 
 alias c="clear"						# clear screen
 
@@ -139,10 +140,13 @@ alias dotpush="config push -u origin main"
 alias dotstat="config status"
 alias dotcomit="config commit -am"
 
-alias lah="ls -lah"					# List all human readable
-alias lh="ls -lh"					# List human readable
+#alias lah="ls -lah"					# List all human readable
+#alias lh="ls -lh"					# List human readable
 
-alias comp="g++ -std=c++11 -Wall"   # Compile c++ code
+#alias comp="g++ -std=c++11 -Wall"   # Compile c++ code
+
+# Backup home folder
+alias bkhome="sudo rsync -aAXv --exclude='.*' /home/$USER/ /mnt/backup-home"
 
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
