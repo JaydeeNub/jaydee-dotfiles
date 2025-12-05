@@ -283,6 +283,11 @@ for_window [floating] move position center
 # Import GTK settings
 exec_always --no-startup-id $HOME/.config/i3/scripts/import-gsettings
 
+#Launch polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+
+
 # Compositor (picom) - transparency and effects
 exec --no-startup-id picom --config  ~/.config/picom/picom.conf
 
