@@ -1,13 +1,19 @@
 #!/bin/bash
+set -euo pipefail
+
+# Source centralized colors
+source ~/.config/dotfiles-common/colors.sh
 
 # Function to get microphone status
 get_mic_status() {
     MUTE_STATUS=$(pactl get-source-mute @DEFAULT_SOURCE@ 2>/dev/null | awk '{print $2}')
-    
+
     if [ "$MUTE_STATUS" = "yes" ]; then
-        echo "%{F#ff5555}%{u#ff5555}%{u-}%{F-}"
+        # Use centralized color for muted state
+        echo "%{F${COLOR_MICROPHONE_MUTED}}%{u${COLOR_MICROPHONE_MUTED}}%{u-}%{F-}"
     else
-        echo "%{F#50fa7b}%{u#50fa7b}%{u-}%{F-}"
+        # Use centralized color for active state
+        echo "%{F${COLOR_MICROPHONE}}%{u${COLOR_MICROPHONE}}%{u-}%{F-}"
     fi
 }
 

@@ -79,7 +79,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 
 plugins=(
-	colors
+	# colors plugin removed - functionality is built into zsh
 	colored-man-pages
 	colorize
 	command-not-found
@@ -88,6 +88,7 @@ plugins=(
 	history
 	vscode
 	z
+	# Syntax highlighting and autosuggestions loaded last for optimal performance
 	zsh-syntax-highlighting
 	zsh-autosuggestions
 )
@@ -172,4 +173,6 @@ alias bkhome-run="rsync -aAXv --exclude='.*' /home/$USER/ /mnt/backup-home"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH="$HOME/.local/bin:$PATH"
+
+# Add local bin to PATH (prevent duplicate entries)
+[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
