@@ -17,29 +17,29 @@ font pango:JetBrainsMono 10
 ################################################################################
 
 # Define workspace names
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-#set $ws10 "10"
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+#set $ws10 "10:"
 
 # Assign workspaces to displays
 # Note: Run 'xrandr' to see your display names and update these accordingly
 # If displays are not connected, workspaces will default to available outputs
-workspace $ws1 output DP-2 primary
-workspace $ws2 output DP-5 primary
-workspace $ws3 output HDMI-0 primary
-workspace $ws4 output DP-2 primary
-workspace $ws5 output DP-5 primary
-workspace $ws6 output HDMI-0 primary
-workspace $ws7 output DP-2 primary
-workspace $ws8 output DP-5 primary
-workspace $ws9 output HDMI-0 primary
+workspace $ws1 output DP-5
+workspace $ws2 output DP-2 primary
+workspace $ws3 output HDMI-0
+workspace $ws4 output DP-5
+workspace $ws5 output DP-2 primary
+workspace $ws6 output HDMI-0
+workspace $ws7 output DP-5 primary
+workspace $ws8 output DP-2
+workspace $ws9 output HDMI-0
 
 # Assign applications to specific workspaces
 #assign [class="code"] $ws1
