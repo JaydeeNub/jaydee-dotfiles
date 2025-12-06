@@ -1,0 +1,160 @@
+/* Dracula Theme for Rofi
+ * Based on official Dracula palette: https://draculatheme.com/spec
+ */
+
+* {
+    /* Dracula Color Palette */
+    drac-bgd: #282A36;
+    drac-cur: #44475A;
+    drac-fgd: #F8F8F2;
+    drac-cmt: #6272A4;
+    drac-cya: #8BE9FD;
+    drac-grn: #50FA7B;
+    drac-ora: #FFB86C;
+    drac-pnk: #FF79C6;
+    drac-pur: #BD93F9;
+    drac-red: #FF5555;
+    drac-yel: #F1FA8C;
+
+    /* Semantic Mappings */
+    background:           @drac-bgd;
+    background-alt:       @drac-cur;
+    foreground:           @drac-fgd;
+    selected:             @drac-pnk;
+    active:               @drac-grn;
+    urgent:               @drac-red;
+    
+    /* Global Properties */
+    background-color:     transparent;
+    text-color:           @foreground;
+    font:                 "JetBrains Mono 12";
+    border-color:         @drac-cmt;
+}
+
+window {
+    width:                600px;
+    background-color:     @background;
+    border:               2px solid;
+    border-color:         @drac-pur;
+    border-radius:        8px;
+    padding:              20px;
+}
+
+mainbox {
+    background-color:     transparent;
+    children:             [ inputbar, message, listview ];
+    spacing:              10px;
+}
+
+inputbar {
+    background-color:     @background-alt;
+    text-color:           @foreground;
+    padding:              10px 15px;
+    border-radius:        6px;
+    children:             [ prompt, entry ];
+}
+
+prompt {
+    background-color:     transparent;
+    text-color:           @drac-pnk;
+    padding:              0 10px 0 0;
+}
+
+entry {
+    background-color:     transparent;
+    text-color:           @foreground;
+    placeholder:          "Search...";
+    placeholder-color:    @drac-cmt;
+}
+
+message {
+    background-color:     @background-alt;
+    text-color:           @foreground;
+    padding:              10px;
+    border-radius:        6px;
+}
+
+textbox {
+    background-color:     transparent;
+    text-color:           @foreground;
+}
+
+listview {
+    background-color:     transparent;
+    columns:              1;
+    lines:                8;
+    spacing:              5px;
+    scrollbar:            true;
+    fixed-height:         true;
+}
+
+scrollbar {
+    width:                4px;
+    handle-width:         4px;
+    handle-color:         @drac-cmt;
+    background-color:     @background-alt;
+    border-radius:        2px;
+}
+
+element {
+    background-color:     transparent;
+    text-color:           @foreground;
+    padding:              10px 15px;
+    border-radius:        6px;
+}
+
+element normal.normal {
+    background-color:     transparent;
+    text-color:           @foreground;
+}
+
+element normal.active {
+    background-color:     transparent;
+    text-color:           @drac-grn;
+}
+
+element normal.urgent {
+    background-color:     transparent;
+    text-color:           @drac-red;
+}
+
+element alternate.normal {
+    background-color:     transparent;
+    text-color:           @foreground;
+}
+
+element alternate.active {
+    background-color:     transparent;
+    text-color:           @drac-grn;
+}
+
+element alternate.urgent {
+    background-color:     transparent;
+    text-color:           @drac-red;
+}
+
+element selected.normal {
+    background-color:     @drac-pnk;
+    text-color:           @drac-bgd;
+}
+
+element selected.active {
+    background-color:     @drac-grn;
+    text-color:           @drac-bgd;
+}
+
+element selected.urgent {
+    background-color:     @drac-red;
+    text-color:           @drac-bgd;
+}
+
+element-icon {
+    size:                 24px;
+    background-color:     transparent;
+}
+
+element-text {
+    background-color:     transparent;
+    text-color:           inherit;
+    vertical-align:       0.5;
+}
