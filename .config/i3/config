@@ -42,9 +42,10 @@ workspace $ws8 output DP-2
 workspace $ws9 output HDMI-0
 
 # Assign applications to specific workspaces
-#assign [class="code"] $ws1
-#assign [class="brave-browser"] $ws2
-#assign [class="kitty"] $ws3
+assign [class="code"] $ws2
+assign [class="brave-browser"] $ws1
+assign [class="kitty"] $ws3
+assign [class="discord"] $ws6
 
 ################################################################################
 # WINDOW APPEARANCE & BEHAVIOR
@@ -281,6 +282,8 @@ for_window [instance="floating_btop"] border pixel 2
 ################################################################################
 # AUTOSTART APPLICATIONS
 ################################################################################
+
+exec --no-startup-id discord
 
 # Import GTK settings
 exec_always --no-startup-id $HOME/.config/i3/scripts/import-gsettings
