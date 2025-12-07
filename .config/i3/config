@@ -46,7 +46,7 @@ assign [class="code"] $ws2
 assign [class="brave-browser"] $ws1
 assign [class="kitty"] $ws3
 assign [class="discord"] $ws6
-
+assign [class="steam"] $ws9
 ################################################################################
 # WINDOW APPEARANCE & BEHAVIOR
 ################################################################################
@@ -146,8 +146,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Split orientation
-#bindsym $mod+h split h
-#bindsym $mod+v split v
+bindsym $mod+h split h
+bindsym $mod+v split v
 
 # Fullscreen toggle
 bindsym $mod+f fullscreen toggle
@@ -281,9 +281,14 @@ for_window [instance="floating_btop"] border pixel 2
 
 ################################################################################
 # AUTOSTART APPLICATIONS
-################################################################################
+#
+# ################################################################################
 
-exec --no-startup-id discord
+#Launch discord on startup
+exec --no-startup-id sleep 4 && discord
+#launch steam on startup
+exec --no-startup-id sleep 10 && steam
+
 
 # Import GTK settings
 exec_always --no-startup-id $HOME/.config/i3/scripts/import-gsettings
@@ -315,7 +320,7 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 exec --no-startup-id sleep 1 && feh --bg-fill ~/Pictures/Wallpapers/dark-wallpaper.jpg
 
 # Notification daemon (dunst)
-exec --no-startup-id /usr/bin/dunst
+exec --no-startup-id sleep 3 && /usr/bin/dunst
 
 # Autotiling script
 exec_always --no-startup-id autotiling
