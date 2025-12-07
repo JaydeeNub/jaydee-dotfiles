@@ -125,8 +125,8 @@ bindsym $mod+Shift+q exec --no-startup-id ~/.config/rofi/applets/bin/quicklinks.
 #bindsym $mod+Shift+v exec --no-startup-id ~/.config/rofi/applets/bin/volume.sh
 
 # Clipboard manager (greenclip)
-#bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
-#       -config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
+       -config ~/.config/rofi/rofidmenu.rasi
 ################################################################################
 # KEYBINDINGS - WINDOW MANAGEMENT
 ################################################################################
@@ -304,7 +304,7 @@ bindsym $mod+r mode "resize"
 #   #bindsym Escape mode "default"
 # }
 
-bindsym $mod+n mode "restore"
+#bindsym $mod+n mode "restore"
 
 ################################################################################
 # WINDOW RULES
@@ -368,7 +368,7 @@ exec --no-startup-id sleep 1 && feh --bg-fill ~/Pictures/Wallpapers/dark-wallpap
 exec --no-startup-id sleep 3 && /usr/bin/dunst
 
 # Autotiling script
-#exec_always --no-startup-id autotiling
+exec_always --no-startup-id autotiling
 
 # Screen lock on sleep
 exec --no-startup-id xss-lock -l ~/.config/i3/scripts/blur-lock
