@@ -44,7 +44,7 @@ workspace $ws9 output HDMI-0
 # Assign applications to specific workspaces
 assign [class="code"] $ws2
 assign [class="brave-browser"] $ws1
-assign [class="kitty"] $ws3
+#assign [class="kitty"] $ws3
 assign [class="discord"] $ws6
 assign [class="steam"] $ws9
 ################################################################################
@@ -242,6 +242,10 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # Audio device switcher
 #bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/audio-device-switch
 
+#Load custom layouts
+exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'
+
+#exec --no-startup-id i3-msg "workspace 2; append_layout ~/.config/i3/workspace-2.json"
 
 ################################################################################
 # RESIZE MODE
@@ -288,6 +292,7 @@ for_window [instance="floating_btop"] border pixel 2
 exec --no-startup-id sleep 4 && discord
 #launch steam on startup
 exec --no-startup-id sleep 10 && steam
+
 
 
 # Import GTK settings
