@@ -38,11 +38,12 @@ workspace $ws4 output DP-5
 workspace $ws5 output DP-2 primary
 workspace $ws6 output HDMI-0
 workspace $ws7 output DP-5
-workspace $ws8 output DP-2
+workspace $ws8 output DP-2 primary
 workspace $ws9 output HDMI-0
 
 # Assign applications to specific workspaces
-assign [class="code"] $ws2
+# Note: Layout swallowing takes precedence over assign rules
+#assign [class="Code"] $ws2
 assign [class="brave-browser"] $ws1
 #assign [class="kitty"] $ws3
 assign [class="discord"] $ws6
@@ -153,9 +154,9 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # Change container layout
-bindsym $mod+s layout stacking
+#bindsym $mod+s layout stacking
 bindsym $mod+g layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+e layout toggle split
 
 # Toggle tiling / floating
 #bindsym $mod+Shift+space floating toggle
@@ -190,7 +191,7 @@ bindcode $mod+Mod2+80 workspace $ws8
 bindcode $mod+Mod2+81 workspace $ws9
 #bindcode $mod+Mod2+90 workspace $ws10
 
-# move focused container to workspace with numpad keys
+# move fo$mod+scused container to workspace with numpad keys
 bindcode $mod+Shift+87   move container to workspace  $ws1
 bindcode $mod+Shift+88   move container to workspace  $ws2
 bindcode $mod+Shift+89   move container to workspace  $ws3
@@ -242,10 +243,8 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # Audio device switcher
 #bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/audio-device-switch
 
-#Load custom layouts
-exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'
-
-#exec --no-startup-id i3-msg "workspace 2; append_layout ~/.config/i3/workspace-2.json"
+#Load custom layouts and launch applications to fill them
+exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json' && sleep 2 && /usr/bin/kitty && sleep 1 && code"
 
 ################################################################################
 # RESIZE MODE
@@ -265,6 +264,57 @@ mode "resize"
 }
 
 bindsym $mod+r mode "resize"
+
+################################################################################
+# RESURRECT
+################################################################################
+# Restore workspaces on startup
+exec --no-startup-id i3-resurrect restore -w 1
+exec --no-startup-id i3-resurrect restore -w 2
+exec --no-startup-id i3-resurrect restore -w 3
+exec --no-startup-id i3-resurrect restore -w 4
+exec --no-startup-id i3-resurrect restore -w 5
+exec --no-startup-id i3-resurrect restore -w 6
+exec --no-startup-id i3-resurrect restore -w 7
+exec --no-startup-id i3-resurrect restore -w 8
+exec --no-startup-id i3-resurrect restore -w 9
+# Save workspace mode
+mode "save" {
+  bindsym 1 exec i3_resurrect save -w 1
+  bindsym 2 exec i3_resurrect save -w 2
+  bindsym 3 exec i3_resurrect save -w 3
+  bindsym 4 exec i3_resurrect save -w 4
+  bindsym 5 exec i3_resurrect save -w 5
+  bindsym 6 exec i3_resurrect save -w 6
+  bindsym 7 exec i3_resurrect save -w 7
+  bindsym 8 exec i3_resurrect save -w 8
+  bindsym 9 exec i3_resurrect save -w 9
+  # Add more workspaces as needed...
+  
+  bindsym Return mode "default"
+  #bindsym Escape mode "default"
+}
+
+bindsym $mod+s mode "save"
+
+# Restore workspace mode
+mode "restore" {
+  bindsym 1 exec i3_resurrect restore -w 1
+  bindsym 2 exec i3_resurrect restore -w 2
+  bindsym 3 exec i3_resurrect restore -w 3
+  bindsym 4 exec i3_resurrect restore -w 4
+  bindsym 5 exec i3_resurrect restore -w 5
+  bindsym 6 exec i3_resurrect restore -w 6
+  bindsym 7 exec i3_resurrect restore -w 7
+  bindsym 8 exec i3_resurrect restore -w 8
+  bindsym 9 exec i3_resurrect restore -w 9
+  
+  bindsym Return mode "default"
+  #bindsym Escape mode "default"
+}
+
+bindsym $mod+n mode "restore"
+
 
 ################################################################################
 # WINDOW RULES
@@ -328,7 +378,7 @@ exec --no-startup-id sleep 1 && feh --bg-fill ~/Pictures/Wallpapers/dark-wallpap
 exec --no-startup-id sleep 3 && /usr/bin/dunst
 
 # Autotiling script
-exec_always --no-startup-id autotiling
+#exec_always --no-startup-id autotiling
 
 # Screen lock on sleep
 exec --no-startup-id xss-lock -l ~/.config/i3/scripts/blur-lock
