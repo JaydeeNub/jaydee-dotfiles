@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 # Detect the primary network interface
 # Priority: active ethernet > active wifi > first ethernet > first wifi

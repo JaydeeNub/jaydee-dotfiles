@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 
 # Source centralized colors
 source ~/.config/dotfiles-common/colors.sh

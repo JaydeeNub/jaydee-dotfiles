@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done

@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 
 # Check if bpytop/btop window is already open
 if pgrep -f "kitty.*floating_btop" > /dev/null; then
