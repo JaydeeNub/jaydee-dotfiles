@@ -1,0 +1,159 @@
+{
+  // === APC Extension Settings ===
+  "apc.electron": {
+    "frame": false,
+    "titleBarStyle": "hiddenInset"
+  },
+  "apc.header": {
+    "height": 32
+  },
+  "apc.activityBar": {
+    "position": "bottom",
+    "size": 40,
+    "itemSize": 32
+  },
+  "apc.statusBar": {
+    "position": "bottom",
+    "height": 26,
+    "fontSize": 12
+  },
+  "apc.listRow": {
+    "height": 22,
+    "fontSize": 13
+  },
+  "apc.font.family": "Inter",
+  "apc.stylesheet": {
+    ".tabs-container .tab": "border: none !important;",
+    ".monaco-workbench .part.sidebar": "padding: 0 !important;",
+    ".breadcrumbs-control": "font-size: 12px; height: 20px;",
+    ".explorer-folders-view .monaco-list-row": "padding-left: 8px !important;"
+  },
+  // === Core Editor Settings ===
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": "'ss01', 'cv03', 'zero'",
+  "editor.fontSize": 17,
+  "editor.lineHeight": 25,
+  "editor.cursorStyle": "line",
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": "off",
+  // Ultra minimal editor
+  "editor.minimap.enabled": false,
+  "editor.glyphMargin": false,
+  "editor.renderLineHighlight": "none",
+  "editor.renderWhitespace": "none",
+  "editor.guides.indentation": false,
+  "editor.occurrencesHighlight": "off",
+  "editor.matchBrackets": "near",
+  "editor.stickyScroll.enabled": false,
+  "editor.scrollbar.horizontalScrollbarSize": 8,
+  "editor.scrollbar.verticalScrollbarSize": 8,
+  "editor.bracketPairColorization.enabled": false,
+  "editor.colorDecorators": false,
+  "editor.parameterHints.enabled": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.mouseWheelZoom": true,
+  "editor.accessibilitySupport": "off",
+  // Editor behavior
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.snippetSuggestions": "top",
+  "editor.quickSuggestionsDelay": 0,
+  "editor.quickSuggestions": {
+    "comments": true,
+    "strings": true,
+    "other": true
+  },
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  // Go to location settings
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.gotoLocation.multipleReferences": "goto",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  // === Files ===
+  "files.insertFinalNewline": true,
+  // === Workbench Settings ===
+  "workbench.activityBar.location": "default",
+  "workbench.statusBar.visible": false,
+  "workbench.editor.showTabs": "single",
+  "workbench.editor.editorActionsLocation": "hidden",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.revealIfOpen": true,
+  "workbench.layoutControl.enabled": false,
+  "workbench.tree.indent": 16,
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.list.horizontalScrolling": true,
+  "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
+  // === Window Settings ===
+  "window.commandCenter": false,
+  "window.titleBarStyle": "native",
+  "window.menuBarVisibility": "toggle",
+  "window.title": " ",
+  "window.autoDetectColorScheme": true,
+  "window.newWindowDimensions": "inherit",
+  // === Explorer Settings ===
+  "explorer.compactFolders": false,
+  "explorer.decorations.badges": false,
+  "explorer.openEditors.visible": 1,
+  "explorer.confirmPasteNative": false,
+  "explorer.incrementalNaming": "smart",
+  // === Terminal Settings ===
+  "terminal.integrated.fontFamily": "JetBrains Mono",
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.lineHeight": 1.85,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  // === Debug Settings ===
+  "debug.console.fontFamily": "JetBrains Mono",
+  "debug.console.fontSize": 15,
+  "debug.console.lineHeight": 35,
+  "debug.toolBarLocation": "docked",
+  // === Git/SCM Settings ===
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "scm.diffDecorations": "none",
+  "scm.inputFontFamily": "JetBrains Mono",
+  // === Diff Editor ===
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": false,
+  // === Problems ===
+  "problems.decorations.enabled": false,
+  // === Markdown ===
+  "markdown.preview.markEditorSelection": false,
+  // === Theme & Icons ===
+  "workbench.colorTheme": "Tokyo Night Dark",
+  "workbench.iconTheme": "vira-icons-carbon",
+  "workbench.productIconTheme": "viraUIIcons",
+  // === Security ===
+  "security.workspace.trust.untrustedFiles": "open",
+  "security.workspace.trust.banner": "never",
+  "redhat.telemetry.enabled": false,
+  // === Emmet ===
+  "emmet.showSuggestionsAsSnippets": true,
+  // === Symbols ===
+  "symbols.hidesExplorerArrows": false,
+  // === Zen Mode ===
+  "zenMode.hideLineNumbers": false,
+  // === C++ Extension Settings (clangd - recommended) ===
+  "clangd.arguments": [
+    "--header-insertion=never",
+    "--compile-commands-dir=${workspaceFolder}/build",
+    "--clang-tidy",
+    "--background-index"
+  ],
+  "clangd.fallbackFlags": [
+    "-std=c++20"
+  ],
+  // Disable Microsoft C++ IntelliSense if using clangd
+  "C_Cpp.intelliSenseEngine": "disabled",
+  // === Alternative: Microsoft C/C++ Settings (comment out clangd settings above if using this) ===
+  // "C_Cpp.default.cppStandard": "c++20",
+  // "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+  // "C_Cpp.formatting": "clangFormat",
+  // "C_Cpp.clang_format_style": "file",
+  // === Unicode Highlight ===
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "clangd.path": "/home/jaydee/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/21.1.0/clangd_21.1.0/bin/clangd",
+  "workbench.preferredDarkColorTheme": "Vira Carbon"
+}

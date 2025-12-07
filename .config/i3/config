@@ -268,16 +268,7 @@ bindsym $mod+r mode "resize"
 ################################################################################
 # RESURRECT
 ################################################################################
-# Restore workspaces on startup
-exec --no-startup-id i3-resurrect restore -w 1
-exec --no-startup-id i3-resurrect restore -w 2
-exec --no-startup-id i3-resurrect restore -w 3
-exec --no-startup-id i3-resurrect restore -w 4
-exec --no-startup-id i3-resurrect restore -w 5
-exec --no-startup-id i3-resurrect restore -w 6
-exec --no-startup-id i3-resurrect restore -w 7
-exec --no-startup-id i3-resurrect restore -w 8
-exec --no-startup-id i3-resurrect restore -w 9
+
 # Save workspace mode
 mode "save" {
   bindsym 1 exec i3_resurrect save -w 1
@@ -315,6 +306,16 @@ mode "restore" {
 
 bindsym $mod+n mode "restore"
 
+# Restore workspaces on startup
+exec --no-startup-id i3-resurrect restore -w 1
+exec-always --no-startup-id i3-resurrect restore -w 2
+exec --no-startup-id i3-resurrect restore -w 3
+exec --no-startup-id i3-resurrect restore -w 4
+exec --no-startup-id i3-resurrect restore -w 5
+exec --no-startup-id i3-resurrect restore -w 6
+exec --no-startup-id i3-resurrect restore -w 7
+exec --no-startup-id i3-resurrect restore -w 8
+exec --no-startup-id i3-resurrect restore -w 9
 
 ################################################################################
 # WINDOW RULES

@@ -45,7 +45,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 #ENABLE_CORRECTION="true"
@@ -170,6 +170,16 @@ alias bkhome-run="rsync -aAXv --exclude='.*' /home/$USER/ /mnt/backup-home"
 
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+# Completely override terminal title
+export PROMPT_COMMAND=''
+unset PROMPT_COMMAND
+
+# Set simple title
+precmd() {
+    printf "\033]2;%s\033\\" "${PWD/#$HOME/~}"
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
