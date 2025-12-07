@@ -204,7 +204,7 @@ bindcode $mod+Shift+81   move container to workspace  $ws9
 
 
 # Open new empty workspace
-bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/empty_workspace
+#bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/empty_workspace
 
 ################################################################################
 # KEYBINDINGS - SYSTEM CONTROLS
@@ -220,7 +220,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # Keybinding hint menu
-bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
+#bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 
 ################################################################################
 # KEYBINDINGS - MULTIMEDIA KEYS
