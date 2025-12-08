@@ -122,7 +122,7 @@ bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/powermenu/type-2/powerm
 bindsym $mod+Shift+q exec --no-startup-id ~/.config/rofi/applets/bin/quicklinks.sh
 
 # Volume control menu
-#bindsym $mod+Shift+v exec --no-startup-id ~/.config/rofi/applets/bin/volume.sh
+bindsym $mod+Shift+v exec --no-startup-id ~/.config/i3/scripts/volume-control
 
 # Clipboard manager (greenclip)
 bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
@@ -318,6 +318,7 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [class="Yad title=yad-calendar"] floating enable
+for_window [class="Yad" title="Audio Control"] floating enable
 for_window [instance="floating_btop"] floating enable
 for_window [instance="floating_btop"] border pixel 2
 # Center floating windows
