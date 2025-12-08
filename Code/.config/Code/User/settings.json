@@ -155,7 +155,7 @@
   "editor.unicodeHighlight.nonBasicASCII": false,
   "clangd.path": "/home/jaydee/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/21.1.0/clangd_21.1.0/bin/clangd",
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.preferredDarkColorTheme": "Monokai Winter Night",
+  "workbench.preferredDarkColorTheme": "Monokai DarkPlus Modern",
   "cmake.defaultVariants": {
     "buildType": {
       "default": "debug",

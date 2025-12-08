@@ -1,0 +1,193 @@
+# Monokai Night color scheme for GNU dircolors
+# Configured for ls and other GNU tools
+
+# Monokai Night colors:
+# Background: #1f1f1f
+# Foreground: #dddddd
+# Cyan: #66d9ef
+# Green: #a6e22e
+# Orange: #fd971f
+# Pink: #f92672
+# Purple: #ae81ff
+# Red: #fe413f
+# Yellow: #e6db74
+
+# Basic file types
+NORMAL 00                    # normal file
+FILE 00                      # regular file
+RESET 0                      # reset to normal
+DIR 01;38;5;81               # directory (cyan bold)
+LINK 38;5;141                # symbolic link (purple)
+MULTIHARDLINK 00             # regular file with more than one link
+FIFO 38;5;208                # pipe (orange)
+SOCK 01;38;5;197             # socket (pink bold)
+DOOR 01;38;5;197             # door (pink bold)
+BLK 38;5;208;48;5;235        # block device (orange on dark bg)
+CHR 38;5;208;48;5;235        # character device (orange on dark bg)
+ORPHAN 38;5;203;48;5;235     # orphaned symlink (red on dark bg)
+MISSING 38;5;203;48;5;235    # missing file (red on dark bg)
+SETUID 37;41                 # setuid file (white on red bg)
+SETGID 30;43                 # setgid file (black on yellow bg)
+CAPABILITY 00                # file with capability
+STICKY_OTHER_WRITABLE 30;42  # sticky+other writable dir
+OTHER_WRITABLE 38;5;81;48;5;235  # other writable dir
+STICKY 37;44                 # sticky dir
+EXEC 01;38;5;112             # executable (green bold)
+
+# Archives and compressed files (red)
+.7z 38;5;203
+.Z 38;5;203
+.ace 38;5;203
+.alz 38;5;203
+.apk 38;5;203
+.arc 38;5;203
+.arj 38;5;203
+.bz 38;5;203
+.bz2 38;5;203
+.cab 38;5;203
+.cpio 38;5;203
+.deb 38;5;203
+.dz 38;5;203
+.ear 38;5;203
+.gz 38;5;203
+.jar 38;5;203
+.lha 38;5;203
+.lrz 38;5;203
+.lz 38;5;203
+.lz4 38;5;203
+.lzh 38;5;203
+.lzma 38;5;203
+.lzo 38;5;203
+.rar 38;5;203
+.rpm 38;5;203
+.rz 38;5;203
+.sar 38;5;203
+.t7z 38;5;203
+.tar 38;5;203
+.taz 38;5;203
+.tbz 38;5;203
+.tbz2 38;5;203
+.tgz 38;5;203
+.tlz 38;5;203
+.txz 38;5;203
+.tz 38;5;203
+.tzo 38;5;203
+.tzst 38;5;203
+.war 38;5;203
+.xz 38;5;203
+.z 38;5;203
+.zip 38;5;203
+.zoo 38;5;203
+.zst 38;5;203
+
+# Image files (purple)
+.bmp 38;5;141
+.gif 38;5;141
+.jpeg 38;5;141
+.jpg 38;5;141
+.mng 38;5;141
+.pbm 38;5;141
+.pcx 38;5;141
+.pgm 38;5;141
+.png 38;5;141
+.ppm 38;5;141
+.svg 38;5;141
+.svgz 38;5;141
+.tga 38;5;141
+.tif 38;5;141
+.tiff 38;5;141
+.webp 38;5;141
+.xbm 38;5;141
+.xpm 38;5;141
+
+# Video files (pink)
+.avi 38;5;197
+.flv 38;5;197
+.m2v 38;5;197
+.m4v 38;5;197
+.mkv 38;5;197
+.mov 38;5;197
+.mp4 38;5;197
+.mpeg 38;5;197
+.mpg 38;5;197
+.ogm 38;5;197
+.ogv 38;5;197
+.qt 38;5;197
+.rm 38;5;197
+.rmvb 38;5;197
+.vob 38;5;197
+.webm 38;5;197
+.wmv 38;5;197
+
+# Audio files (cyan)
+.aac 38;5;81
+.au 38;5;81
+.flac 38;5;81
+.m4a 38;5;81
+.mid 38;5;81
+.midi 38;5;81
+.mka 38;5;81
+.mp3 38;5;81
+.mpc 38;5;81
+.oga 38;5;81
+.ogg 38;5;81
+.opus 38;5;81
+.ra 38;5;81
+.spx 38;5;81
+.wav 38;5;81
+.wma 38;5;81
+
+# Documents (yellow)
+.doc 38;5;186
+.docx 38;5;186
+.odt 38;5;186
+.pdf 38;5;186
+.ppt 38;5;186
+.pptx 38;5;186
+.xls 38;5;186
+.xlsx 38;5;186
+
+# Source code (green)
+.c 38;5;112
+.cc 38;5;112
+.cpp 38;5;112
+.css 38;5;112
+.go 38;5;112
+.h 38;5;112
+.hpp 38;5;112
+.html 38;5;112
+.java 38;5;112
+.js 38;5;112
+.json 38;5;112
+.jsx 38;5;112
+.lua 38;5;112
+.php 38;5;112
+.py 38;5;112
+.rb 38;5;112
+.rs 38;5;112
+.sh 38;5;112
+.sql 38;5;112
+.ts 38;5;112
+.tsx 38;5;112
+.vim 38;5;112
+.xml 38;5;112
+.yaml 38;5;112
+.yml 38;5;112
+
+# Configuration files (orange)
+.cfg 38;5;208
+.conf 38;5;208
+.config 38;5;208
+.ini 38;5;208
+.toml 38;5;208
+
+# Git files (cyan)
+.git 38;5;81
+.gitattributes 38;5;81
+.gitignore 38;5;81
+.gitmodules 38;5;81
+
+# Markdown and text (foreground default)
+.md 00
+.markdown 00
+.txt 00
