@@ -1,0 +1,173 @@
+#!/usr/bin/env bash
+
+## Interactive volume control with speaker and mic sliders
+## Author: JayDee
+
+# Get current speaker volume percentage
+get_speaker_volume() {
+    pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | head -1
+}
+
+# Get current mic volume percentage
+get_mic_volume() {
+    pactl get-source-volume @DEFAULT_SOURCE@ | grep -Po '\d+(?=%)' | head -1
+}
+
+# Check if speaker is muted
+is_speaker_muted() {
+    pactl get-sink-mute @DEFAULT_SINK@ | grep -q "yes"
+}
+
+# Check if mic is muted
+is_mic_muted() {
+    pactl get-source-mute @DEFAULT_SOURCE@ | grep -q "yes"
+}
+
+# Send notification
+send_notification() {
+    local volume=$(get_speaker_volume)
+
+    if is_speaker_muted; then
+        dunstify -a "volume" -u normal -h string:x-dunst-stack-tag:volume \
+            -h int:value:0 "Volume: Muted" -i audio-volume-muted
+    else
+        local icon="audio-volume-high"
+        if [ "$volume" -lt 33 ]; then
+            icon="audio-volume-low"
+        elif [ "$volume" -lt 66 ]; then
+            icon="audio-volume-medium"
+        fi
+
+        dunstify -a "volume" -u normal -h string:x-dunst-stack-tag:volume \
+            -h int:value:"$volume" "Volume: ${volume}%" -i "$icon"
+    fi
+}
+
+# Show interactive volume control with speaker and mic
+show_volume_control() {
+    local current_speaker=$(get_speaker_volume)
+    local current_mic=$(get_mic_volume)
+
+    # Create FIFO pipes for communication
+    local speaker_pipe="/tmp/speaker_vol_$$"
+    local mic_pipe="/tmp/mic_vol_$$"
+    mkfifo "$speaker_pipe"
+    mkfifo "$mic_pipe"
+
+    # Handler for speaker volume changes
+    (
+        while read -r new_vol; do
+            if [[ "$new_vol" =~ ^[0-9]+$ ]]; then
+                pactl set-sink-volume @DEFAULT_SINK@ "${new_vol}%"
+                pactl set-sink-mute @DEFAULT_SINK@ 0
+            fi
+        done < "$speaker_pipe"
+    ) &
+    local speaker_handler_pid=$!
+
+    # Handler for mic volume changes
+    (
+        while read -r new_vol; do
+            if [[ "$new_vol" =~ ^[0-9]+$ ]]; then
+                pactl set-source-volume @DEFAULT_SOURCE@ "${new_vol}%"
+                pactl set-source-mute @DEFAULT_SOURCE@ 0
+            fi
+        done < "$mic_pipe"
+    ) &
+    local mic_handler_pid=$!
+
+    # Show yad form with both sliders
+    yad --form \
+        --title="Audio Control" \
+        --text="<big><b>🎚️ Audio Control Panel</b></big>\n<i>Adjust speaker and microphone volumes</i>" \
+        --field="<b>🔊 Speaker Volume</b>:SCL" "$current_speaker" \
+        --field="<b>🎤 Microphone Volume</b>:SCL" "$current_mic" \
+        --width=400 \
+        --height=350 \
+        --center \
+        --on-top \
+        --undecorated \
+        --close-on-unfocus \
+        --buttons-layout=center \
+        --button="🔇 Mute Speaker:2" \
+        --button="🎙️ Mute Mic:3" \
+        --button="gtk-close:0" \
+        --timeout=15 \
+        --timeout-indicator=bottom \
+        --borders=20 \
+        --scale-min=0 \
+        --scale-max=100 \
+        --scale-step=1 \
+        2>/dev/null > /tmp/audio_result_$$ &
+
+    local yad_pid=$!
+
+    # Monitor yad output for real-time slider changes
+    (
+        tail -f /tmp/audio_result_$$ 2>/dev/null | while IFS='|' read -r speaker_vol mic_vol; do
+            if [[ -n "$speaker_vol" ]]; then
+                echo "$speaker_vol" > "$speaker_pipe"
+            fi
+            if [[ -n "$mic_vol" ]]; then
+                echo "$mic_vol" > "$mic_pipe"
+            fi
+        done
+    ) &
+    local monitor_pid=$!
+
+    # Wait for yad to close or button press
+    wait $yad_pid 2>/dev/null
+    local exit_code=$?
+
+    # Handle button presses
+    case $exit_code in
+        2)  # Mute speaker button
+            pactl set-sink-mute @DEFAULT_SINK@ toggle
+            send_notification
+            ;;
+        3)  # Mute mic button
+            pactl set-source-mute @DEFAULT_SOURCE@ toggle
+            local mic_vol=$(get_mic_volume)
+            if is_mic_muted; then
+                dunstify -a "microphone" -u normal -h string:x-dunst-stack-tag:microphone \
+                    "Microphone: Muted" -i microphone-sensitivity-muted
+            else
+                dunstify -a "microphone" -u normal -h string:x-dunst-stack-tag:microphone \
+                    "Microphone: ${mic_vol}%" -i microphone-sensitivity-high
+            fi
+            ;;
+        0|*)  # Close or timeout
+            send_notification
+            ;;
+    esac
+
+    # Clean up
+    kill $speaker_handler_pid $mic_handler_pid $monitor_pid 2>/dev/null
+    rm -f "$speaker_pipe" "$mic_pipe" /tmp/audio_result_$$
+}
+
+# Main logic
+case "$1" in
+    up)
+        pactl set-sink-mute @DEFAULT_SINK@ 0
+        pactl set-sink-volume @DEFAULT_SINK@ +5%
+        send_notification
+        ;;
+    down)
+        pactl set-sink-mute @DEFAULT_SINK@ 0
+        pactl set-sink-volume @DEFAULT_SINK@ -5%
+        send_notification
+        ;;
+    mute)
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+        send_notification
+        ;;
+    "")
+        # No argument - show interactive control
+        show_volume_control
+        ;;
+    *)
+        echo "Usage: $0 {up|down|mute|<no args for interactive>}"
+        exit 1
+        ;;
+esac
