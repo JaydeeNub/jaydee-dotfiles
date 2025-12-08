@@ -73,17 +73,17 @@ workspace_auto_back_and_forth yes
 ################################################################################
 
 # Color variables
-set $darkbluetrans  #282A36e6
-set $darkblue       #282A36
-set $lightblue      #BD93F9
-set $urgentred      #FF5555
-set $white          #F8F8F2
-set $black          #282A36
-set $purple         #FF79C6
-set $darkgrey       #44475A
-set $grey           #6272A4
-set $mediumgrey     #BD93F9
-set $yellowbrown    #FFB86C
+set $darkbluetrans  #1F1F1Fe6
+set $darkblue       #1F1F1F
+set $lightblue      #66D9EF
+set $urgentred      #FE413F
+set $white          #DDDDDD
+set $black          #1F1F1F
+set $purple         #F92672
+set $darkgrey       #262626
+set $grey           #666666
+set $mediumgrey     #66D9EF
+set $yellowbrown    #FD971F
 
 # Window colors
 #class                      border      bground     text        indicator       child_border

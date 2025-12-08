@@ -15,4 +15,4 @@
 
 /* Import color-scheme from `colors` directory */
 
-@import "~/.config/rofi/dracula.rasi"
+@import "~/.config/rofi/monokai.rasi"

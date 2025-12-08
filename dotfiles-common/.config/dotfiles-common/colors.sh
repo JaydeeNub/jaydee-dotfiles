@@ -1,60 +1,63 @@
 #!/usr/bin/env bash
 # Centralized Color Configuration for Dotfiles
-# Dracula Theme Color Palette
-# https://draculatheme.com/contribute
+# Monokai Night Theme Color Palette
+# Based on Monokai Night by Fabio Spampinato
 
 ##########################################################################
-# DRACULA THEME - PRIMARY COLORS
+# MONOKAI NIGHT THEME - PRIMARY COLORS
 ##########################################################################
 
 # Background & Foreground
-export DRACULA_BG="#282a36"
-export DRACULA_BG_ALT="#44475a"
-export DRACULA_FG="#f8f8f2"
-export DRACULA_FG_ALT="#6272a4"
+export MONOKAI_BG="#1f1f1f"
+export MONOKAI_BG_ALT="#262626"
+export MONOKAI_BG_DARK="#0f0f0f"
+export MONOKAI_BG_ELEVATED="#363636"
+export MONOKAI_FG="#dddddd"
+export MONOKAI_FG_ALT="#888888"
 
 # Accent Colors
-export DRACULA_CYAN="#8be9fd"
-export DRACULA_GREEN="#50fa7b"
-export DRACULA_ORANGE="#ffb86c"
-export DRACULA_PINK="#ff79c6"
-export DRACULA_PURPLE="#bd93f9"
-export DRACULA_RED="#ff5555"
-export DRACULA_YELLOW="#f1fa8c"
+export MONOKAI_CYAN="#66d9ef"
+export MONOKAI_GREEN="#a6e22e"
+export MONOKAI_ORANGE="#fd971f"
+export MONOKAI_PINK="#f92672"
+export MONOKAI_PURPLE="#ae81ff"
+export MONOKAI_RED="#fe413f"
+export MONOKAI_YELLOW="#e6db74"
 
 # Special Colors
-export DRACULA_COMMENT="#6272a4"
-export DRACULA_SELECTION="#44475a"
-export DRACULA_TRANSPARENT="#282a36e6"
+export MONOKAI_COMMENT="#666666"
+export MONOKAI_SELECTION="#363636"
+export MONOKAI_TRANSPARENT="#1f1f1fe6"
+export MONOKAI_ACCENT="#007acc"
 
 ##########################################################################
 # SEMANTIC COLOR MAPPINGS
 ##########################################################################
 
 # UI Elements
-export COLOR_PRIMARY="$DRACULA_PURPLE"
-export COLOR_SECONDARY="$DRACULA_PINK"
-export COLOR_BACKGROUND="$DRACULA_BG"
-export COLOR_FOREGROUND="$DRACULA_FG"
+export COLOR_PRIMARY="$MONOKAI_CYAN"
+export COLOR_SECONDARY="$MONOKAI_PURPLE"
+export COLOR_BACKGROUND="$MONOKAI_BG"
+export COLOR_FOREGROUND="$MONOKAI_FG"
 
 # Status Indicators
-export COLOR_SUCCESS="$DRACULA_GREEN"
-export COLOR_WARNING="$DRACULA_ORANGE"
-export COLOR_ERROR="$DRACULA_RED"
-export COLOR_INFO="$DRACULA_CYAN"
+export COLOR_SUCCESS="$MONOKAI_GREEN"
+export COLOR_WARNING="$MONOKAI_YELLOW"
+export COLOR_ERROR="$MONOKAI_RED"
+export COLOR_INFO="$MONOKAI_CYAN"
 
 # System Monitoring
-export COLOR_CPU="$DRACULA_PURPLE"
-export COLOR_MEMORY="$DRACULA_CYAN"
-export COLOR_DISK="$DRACULA_ORANGE"
-export COLOR_NETWORK_UP="$DRACULA_RED"
-export COLOR_NETWORK_DOWN="$DRACULA_GREEN"
-export COLOR_TEMPERATURE="$DRACULA_ORANGE"
+export COLOR_CPU="$MONOKAI_PURPLE"
+export COLOR_MEMORY="$MONOKAI_CYAN"
+export COLOR_DISK="$MONOKAI_ORANGE"
+export COLOR_NETWORK_UP="$MONOKAI_RED"
+export COLOR_NETWORK_DOWN="$MONOKAI_GREEN"
+export COLOR_TEMPERATURE="$MONOKAI_ORANGE"
 
 # Audio/Media
-export COLOR_VOLUME="$DRACULA_PINK"
-export COLOR_MICROPHONE="$DRACULA_GREEN"
-export COLOR_MICROPHONE_MUTED="$DRACULA_RED"
+export COLOR_VOLUME="$MONOKAI_PINK"
+export COLOR_MICROPHONE="$MONOKAI_GREEN"
+export COLOR_MICROPHONE_MUTED="$MONOKAI_RED"
 
 ##########################################################################
 # HELPER FUNCTIONS
@@ -77,11 +80,11 @@ hex_to_rgb() {
 #
 # In shell scripts:
 #   source ~/.config/dotfiles-common/colors.sh
-#   echo -e "${DRACULA_PURPLE}This is purple text${DRACULA_FG}"
+#   echo -e "${MONOKAI_CYAN}This is cyan text${MONOKAI_FG}"
 #
 # For other configs (i3, polybar, etc.), use the values directly:
-#   background = #282a36
-#   foreground = #f8f8f2
-#   primary = #bd93f9
+#   background = #1f1f1f
+#   foreground = #dddddd
+#   primary = #66d9ef
 #
 ##########################################################################

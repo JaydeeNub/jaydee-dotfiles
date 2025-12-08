@@ -1,0 +1,161 @@
+/* Monokai Night Theme for Rofi
+ * Based on Monokai Night by Fabio Spampinato
+ */
+
+* {
+    /* Monokai Night Color Palette */
+    mono-bgd: #1F1F1F;
+    mono-cur: #262626;
+    mono-ele: #363636;
+    mono-fgd: #DDDDDD;
+    mono-cmt: #666666;
+    mono-cya: #66D9EF;
+    mono-grn: #A6E22E;
+    mono-ora: #FD971F;
+    mono-pnk: #F92672;
+    mono-pur: #AE81FF;
+    mono-red: #FE413F;
+    mono-yel: #E6DB74;
+
+    /* Semantic Mappings */
+    background:           @mono-bgd;
+    background-alt:       @mono-cur;
+    foreground:           @mono-fgd;
+    selected:             @mono-cya;
+    active:               @mono-grn;
+    urgent:               @mono-red;
+
+    /* Global Properties */
+    background-color:     transparent;
+    text-color:           @foreground;
+    font:                 "JetBrains Mono 12";
+    border-color:         @mono-cmt;
+}
+
+window {
+    width:                600px;
+    background-color:     @background;
+    border:               2px solid;
+    border-color:         @mono-cya;
+    border-radius:        8px;
+    padding:              20px;
+}
+
+mainbox {
+    background-color:     transparent;
+    children:             [ inputbar, message, listview ];
+    spacing:              10px;
+}
+
+inputbar {
+    background-color:     @background-alt;
+    text-color:           @foreground;
+    padding:              10px 15px;
+    border-radius:        6px;
+    children:             [ prompt, entry ];
+}
+
+prompt {
+    background-color:     transparent;
+    text-color:           @mono-cya;
+    padding:              0 10px 0 0;
+}
+
+entry {
+    background-color:     transparent;
+    text-color:           @foreground;
+    placeholder:          "Search...";
+    placeholder-color:    @mono-cmt;
+}
+
+message {
+    background-color:     @background-alt;
+    text-color:           @foreground;
+    padding:              10px;
+    border-radius:        6px;
+}
+
+textbox {
+    background-color:     transparent;
+    text-color:           @foreground;
+}
+
+listview {
+    background-color:     transparent;
+    columns:              1;
+    lines:                8;
+    spacing:              5px;
+    scrollbar:            true;
+    fixed-height:         true;
+}
+
+scrollbar {
+    width:                4px;
+    handle-width:         4px;
+    handle-color:         @mono-cmt;
+    background-color:     @background-alt;
+    border-radius:        2px;
+}
+
+element {
+    background-color:     transparent;
+    text-color:           @foreground;
+    padding:              10px 15px;
+    border-radius:        6px;
+}
+
+element normal.normal {
+    background-color:     transparent;
+    text-color:           @foreground;
+}
+
+element normal.active {
+    background-color:     transparent;
+    text-color:           @mono-grn;
+}
+
+element normal.urgent {
+    background-color:     transparent;
+    text-color:           @mono-red;
+}
+
+element alternate.normal {
+    background-color:     transparent;
+    text-color:           @foreground;
+}
+
+element alternate.active {
+    background-color:     transparent;
+    text-color:           @mono-grn;
+}
+
+element alternate.urgent {
+    background-color:     transparent;
+    text-color:           @mono-red;
+}
+
+element selected.normal {
+    background-color:     @mono-cya;
+    text-color:           @mono-bgd;
+}
+
+element selected.active {
+    background-color:     @mono-grn;
+    text-color:           @mono-bgd;
+}
+
+element selected.urgent {
+    background-color:     @mono-red;
+    text-color:           @mono-bgd;
+}
+
+element-icon {
+    size:                 24px;
+    background-color:     transparent;
+}
+
+element-text {
+    background-color:     transparent;
+    text-color:           inherit;
+    vertical-align:       0.5;
+}

@@ -87,6 +87,7 @@ plugins=(
 	gitignore
 	history
 	vscode
+	git
 	z
 	# Syntax highlighting and autosuggestions loaded last for optimal performance
 	zsh-syntax-highlighting
@@ -154,10 +155,10 @@ alias psmem="ps auxf | sort -nr -k 4 | head -10"  # Top 10 memory-consuming proc
 alias pscpu="ps auxf | sort -nr -k 3 | head -10"  # Top 10 CPU-consuming processes
 
 #dotfiles repo commands
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias dotpush="config push -u origin main"
-alias dotstat="config status"
-alias dotcomit="config commit -am"
+#alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+#alias dotpush="config push -u origin main"
+#alias dotstat="config status"
+#alias dotcomit="config commit -am"
 
 #alias lah="ls -lah"					# List all human readable
 #alias lh="ls -lh"					# List human readable
@@ -186,3 +187,28 @@ precmd() {
 
 # Add local bin to PATH (prevent duplicate entries)
 [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
+
+##########################################################################
+# MONOKAI NIGHT COLOR SCHEME FOR COMMAND OUTPUT
+##########################################################################
+
+# Load dircolors (for ls and other file listing commands)
+if [[ -f ~/.dircolors ]]; then
+    eval "$(dircolors -b ~/.dircolors)"
+fi
+
+# Grep colors (Monokai Night theme)
+# mt=match, fn=filename, ln=line number, se=separator
+export GREP_COLORS='mt=01;38;5;112:fn=38;5;81:ln=38;5;186:se=38;5;240'
+
+# GCC colors (for compiler output)
+export GCC_COLORS='error=01;38;5;203:warning=01;38;5;186:note=01;38;5;81:caret=01;38;5;112:locus=38;5;240:quote=38;5;141'
+
+# Less colors (for man pages and less pager)
+export LESS_TERMCAP_mb=$'\e[1;38;5;197m'  # begin blinking (pink)
+export LESS_TERMCAP_md=$'\e[1;38;5;81m'   # begin bold (cyan)
+export LESS_TERMCAP_me=$'\e[0m'           # end mode
+export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\e[38;5;235;48;5;81m'  # begin standout-mode (dark bg, cyan fg)
+export LESS_TERMCAP_ue=$'\e[0m'           # end underline
+export LESS_TERMCAP_us=$'\e[4;38;5;112m'  # begin underline (green)

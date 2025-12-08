@@ -88,13 +88,12 @@
   // === Window Settings ===
   "window.commandCenter": false,
   "window.titleBarStyle": "native",
-  "window.menuBarVisibility": "toggle",
+  "window.menuBarVisibility": "compact",
   "window.title": "${activeFolderLong}",
   "window.autoDetectColorScheme": true,
   "window.newWindowDimensions": "inherit",
   // === Explorer Settings ===
   "explorer.compactFolders": false,
-  "explorer.decorations.badges": false,
   "explorer.openEditors.visible": 1,
   "explorer.confirmPasteNative": false,
   "explorer.incrementalNaming": "smart",
@@ -155,7 +154,7 @@
   "editor.unicodeHighlight.nonBasicASCII": false,
   "clangd.path": "/home/jaydee/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/21.1.0/clangd_21.1.0/bin/clangd",
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.preferredDarkColorTheme": "Monokai Winter Night",
+  "workbench.preferredDarkColorTheme": "Monokai DarkPlus Modern",
   "cmake.defaultVariants": {
     "buildType": {
       "default": "debug",
@@ -198,5 +197,6 @@
   "chat.editing.confirmEditRequestRetry": false,
   "chat.detectParticipant.enabled": false,
   "chat.commandCenter.enabled": false,
-  "chat.extensionTools.enabled": false
+  "chat.extensionTools.enabled": false,
+  "git.autofetch": true
 }
