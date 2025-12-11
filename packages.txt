@@ -1,0 +1,66 @@
+# Core Packages for jaydee-dotfiles
+# Install all at once with: sudo pacman -S --needed $(grep -v '^#' packages.txt | xargs)
+
+## Window Manager & Core
+i3-wm
+i3status
+autotiling
+
+## Terminal & Shell
+kitty
+zsh
+
+## Application Launcher & Menus
+rofi
+
+## Compositor & Visual Effects
+picom
+
+## System Monitor
+conky
+
+## Wallpaper & Display
+feh
+arandr
+
+## Notifications
+dunst
+
+## Screenshots
+flameshot
+
+## Screen Locking
+i3lock
+imagemagick
+
+## Fonts
+ttf-jetbrains-mono
+# ttf-jetbrains-mono-nerd (AUR)
+
+## Audio
+pulseaudio
+pavucontrol
+playerctl
+
+## System Utilities
+numlockx
+xss-lock
+dex
+net-tools
+
+## Git Tools
+lazygit
+
+## Optional - AUR Packages (install with yay)
+# greenclip
+# brave-bin
+# nerd-fonts-jetbrains-mono
+
+## Optional - Enhanced CLI Tools
+# eza (modern ls replacement - already in use based on aliases)
+# bat (better cat with syntax highlighting)
+# fzf (fuzzy finder for better search)
+
+## Display Management
+# Install GNU Stow for dotfile management
+stow

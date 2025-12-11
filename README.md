@@ -40,9 +40,12 @@ A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with
 2. **Install dependencies** (see [Dependencies](#dependencies) section or check `packages.txt`):
    ```bash
    # Install all required packages (Arch Linux):
+   sudo pacman -S --needed $(grep -v '^#' packages.txt | xargs)
+
+   # Or manually install core packages:
    sudo pacman -S i3-wm i3status autotiling kitty zsh rofi picom conky feh dunst \
                   flameshot i3lock imagemagick ttf-jetbrains-mono pulseaudio \
-                  pavucontrol playerctl numlockx xss-lock dex net-tools
+                  pavucontrol playerctl numlockx xss-lock dex net-tools stow lazygit
    ```
 
 3. **Install Oh My Zsh:**
@@ -64,22 +67,28 @@ A minimal, keyboard-driven Linux desktop environment using i3wm, Kitty, Zsh with
              ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
    ```
 
-6. **Symlink configuration files:**
+6. **Deploy configuration files using GNU Stow:**
    ```bash
+   # Navigate to dotfiles directory
+   cd ~/Projects/jaydee-dotfiles
+
    # Backup existing configs first!
    mkdir -p ~/.config/backup
    cp -r ~/.config/i3 ~/.config/backup/ 2>/dev/null || true
+   cp -r ~/.config/kitty ~/.config/backup/ 2>/dev/null || true
    cp ~/.zshrc ~/.zshrc.backup 2>/dev/null || true
 
-   # Symlink dotfiles
-   ln -sf ~/Projects/jaydee-dotfiles/.zshrc ~/.zshrc
-   ln -sf ~/Projects/jaydee-dotfiles/.zshenv ~/.zshenv
-   ln -sf ~/Projects/jaydee-dotfiles/.p10k.zsh ~/.p10k.zsh
-   ln -sf ~/Projects/jaydee-dotfiles/.config/i3 ~/.config/
-   ln -sf ~/Projects/jaydee-dotfiles/.config/kitty ~/.config/
-   ln -sf ~/Projects/jaydee-dotfiles/.config/rofi ~/.config/
-   ln -sf ~/Projects/jaydee-dotfiles/.config/picom ~/.config/
-   ln -sf ~/Projects/jaydee-dotfiles/.config/conky ~/.config/
+   # Deploy all configurations using Stow
+   stow zsh i3 kitty rofi picom conky lazygit Code
+
+   # Or deploy individually:
+   # stow zsh
+   # stow i3
+   # stow kitty
+   # etc.
+
+   # To remove/uninstall dotfiles later:
+   # stow -D zsh i3 kitty rofi picom conky lazygit Code
    ```
 
 7. **Configure displays:**

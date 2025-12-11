@@ -78,6 +78,9 @@ DISABLE_AUTO_TITLE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
+# Enable lazy loading for better startup performance
+zstyle ':omz:plugins:*' lazy yes
+
 plugins=(
 	# colors plugin removed - functionality is built into zsh
 	colored-man-pages
@@ -98,6 +101,10 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# Enable completion caching for faster shell startup
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path ~/.zsh/cache
+
 # Enhanced history configuration
 HISTSIZE=50000
 SAVEHIST=50000
@@ -115,11 +122,13 @@ setopt SHARE_HISTORY             # Share history between sessions
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+  export VISUAL='vim'
+else
+  export EDITOR='code --wait'
+  export VISUAL='code --wait'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -142,7 +151,7 @@ alias ins="sudo pacman -S"			# Install Package
 alias spac="pacman -Ss"				# Search for package
 alias rem="sudo pacman -Rns"		# Remove Package
 alias yem="yay -Rns"				# Remove yay package
-alias orphans="sudo pacman -Rns \$(pacman -Qtdq 2>/dev/null)"  # Remove orphaned packages
+alias orphans='sudo pacman -Rns $(pacman -Qtdq 2>/dev/null) 2>/dev/null || echo "No orphaned packages found"'  # Remove orphaned packages
 alias pacc="sudo pacman -Sc"		# Clean package cache
 alias paci="pacman -Qi"				# Info about installed package
 
@@ -153,6 +162,8 @@ alias ports="netstat -tulanp"		# Show open ports
 alias myip="curl -s ifconfig.me"	# Show public IP
 alias psmem="ps auxf | sort -nr -k 4 | head -10"  # Top 10 memory-consuming processes
 alias pscpu="ps auxf | sort -nr -k 3 | head -10"  # Top 10 CPU-consuming processes
+
+alias cat="bat"
 
 # Eza commands
 alias ls='eza --color=always --group-directories-first --icons'
@@ -183,7 +194,8 @@ precmd() {
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Add local bin to PATH (prevent duplicate entries)
-[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
+path=("$HOME/.local/bin" $path)
+typeset -U path  # Remove duplicates automatically
 
 ##########################################################################
 # MONOKAI NIGHT COLOR SCHEME FOR COMMAND OUTPUT

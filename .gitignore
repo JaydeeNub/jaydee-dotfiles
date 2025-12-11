@@ -1,0 +1,47 @@
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+*.old
+
+# Cache directories
+.cache/
+__pycache__/
+
+# Local configuration (not to be shared)
+*.local
+*_local
+.env
+.env.local
+
+# Compiled files
+*.pyc
+*.class
+*.o
+*.so
+
+# Package manager files
+node_modules/
+.npm/
+.yarn/
