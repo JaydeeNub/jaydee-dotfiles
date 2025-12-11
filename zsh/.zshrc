@@ -154,17 +154,21 @@ alias myip="curl -s ifconfig.me"	# Show public IP
 alias psmem="ps auxf | sort -nr -k 4 | head -10"  # Top 10 memory-consuming processes
 alias pscpu="ps auxf | sort -nr -k 3 | head -10"  # Top 10 CPU-consuming processes
 
-alias l='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first'
-alias ll='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first -l --git -h'
-alias la='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first -a'
-alias lla='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first -a -l --git -h'
+# Eza commands
+alias ls='eza --color=always --group-directories-first --icons'
+alias ll='eza -la --icons --octal-permissions --group-directories-first'
+alias l='eza -bGF --header --git --color=always --group-directories-first --icons'
+alias llm='eza -lbGd --header --git --sort=modified --color=always --group-directories-first --icons' 
+alias la='eza --long --all --group --group-directories-first'
+alias lx='eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --color=always --group-directories-first --icons'
+
+alias lS='eza -1 --color=always --group-directories-first --icons'
+alias lt='eza --tree --level=2 --color=always --group-directories-first --icons'
+alias l.="eza -a | grep -E '^\.'"
+
 # Backup home folder (dry-run by default for safety)
 alias bkhome-preview="rsync -aAXv --dry-run --exclude='.*' /home/$USER/ /mnt/backup-home"
 alias bkhome-run="rsync -aAXv --exclude='.*' /home/$USER/ /mnt/backup-home"
-
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 
 # Completely override terminal title
 export PROMPT_COMMAND=''
