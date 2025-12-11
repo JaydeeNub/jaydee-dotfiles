@@ -154,17 +154,10 @@ alias myip="curl -s ifconfig.me"	# Show public IP
 alias psmem="ps auxf | sort -nr -k 4 | head -10"  # Top 10 memory-consuming processes
 alias pscpu="ps auxf | sort -nr -k 3 | head -10"  # Top 10 CPU-consuming processes
 
-#dotfiles repo commands
-#alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-#alias dotpush="config push -u origin main"
-#alias dotstat="config status"
-#alias dotcomit="config commit -am"
-
-#alias lah="ls -lah"					# List all human readable
-#alias lh="ls -lh"					# List human readable
-
-#alias comp="g++ -std=c++11 -Wall"   # Compile c++ code
-
+alias l='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first'
+alias ll='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first -l --git -h'
+alias la='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first -a'
+alias lla='eza --color=always --color-scale=all --color-scale-mode=gradient --icons=always --group-directories-first -a -l --git -h'
 # Backup home folder (dry-run by default for safety)
 alias bkhome-preview="rsync -aAXv --dry-run --exclude='.*' /home/$USER/ /mnt/backup-home"
 alias bkhome-run="rsync -aAXv --exclude='.*' /home/$USER/ /mnt/backup-home"

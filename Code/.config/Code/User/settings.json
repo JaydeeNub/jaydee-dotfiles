@@ -198,5 +198,9 @@
   "chat.detectParticipant.enabled": false,
   "chat.commandCenter.enabled": false,
   "chat.extensionTools.enabled": false,
-  "git.autofetch": true
+  "git.autofetch": true,
+  "files.associations": {
+    "*.txt": "plaintext"
+  },
+  "workbench.editor.empty.hint": "hidden"
 }
